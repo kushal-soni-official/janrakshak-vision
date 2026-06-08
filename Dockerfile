@@ -5,7 +5,7 @@ WORKDIR /code
 # System dependencies for OpenCV and video processing
 RUN apt-get update && apt-get install -y \
     libglib2.0-0 libsm6 libxext6 libxrender-dev \
-    libgomp1 ffmpeg libgl1-mesa-glx \
+    libgomp1 ffmpeg libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
