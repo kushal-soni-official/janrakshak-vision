@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   JANRAKSHAK VISION — DESIGN SYSTEM
+   Team: Anonymous Group | Leader: Kushal Soni
+   Tradition Hacks 2026
+   ============================================ */
+
+/* === LIGHT MODE (Default) === */
+:root {
+  --color-primary: #2563EB;
+  --color-primary-dark: #1E40AF;
+  --color-primary-light: #93C5FD;
+  --color-bg: #EEF2FF;
+  --color-bg2: #E0E8FF;
+  --color-surface: #FFFFFF;
+  --color-surface2: #F5F7FF;
+  --color-text: #0F172A;
+  --color-text-muted: #475569;
+  --color-border: #CBD5E1;
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-danger: #DC2626;
+  --color-success-bg: rgba(22,163,74,0.08);
+  --color-warning-bg: rgba(217,119,6,0.08);
+  --color-danger-bg: rgba(220,38,38,0.08);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(37,99,235,0.10);
+  --shadow-lg: 0 8px 32px rgba(37,99,235,0.15);
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* === DARK MODE === */
+[data-mode="dark"] {
+  --color-bg: #0B1120;
+  --color-bg2: #0F172A;
+  --color-surface: #1E293B;
+  --color-surface2: #293548;
+  --color-text: #F1F5F9;
+  --color-text-muted: #94A3B8;
+  --color-border: #334155;
+  --color-success-bg: rgba(22,163,74,0.12);
+  --color-warning-bg: rgba(217,119,6,0.12);
+  --color-danger-bg: rgba(220,38,38,0.12);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* === COLOR THEMES (Light) === */
+[data-theme="saffron"] { --color-primary:#EA580C; --color-primary-dark:#C2410C; --color-primary-light:#FDBA74; --color-bg:#FFF7ED; --color-bg2:#FFEDD5; --color-surface:#FFFFFF; --color-surface2:#FFF3E8; }
+[data-theme="forest"]  { --color-primary:#16A34A; --color-primary-dark:#15803D; --color-primary-light:#86EFAC; --color-bg:#F0FDF4; --color-bg2:#DCFCE7; --color-surface:#FFFFFF; --color-surface2:#ECFDF5; }
+[data-theme="ocean"]   { --color-primary:#0891B2; --color-primary-dark:#0E7490; --color-primary-light:#67E8F9; --color-bg:#ECFEFF; --color-bg2:#CFFAFE; --color-surface:#FFFFFF; --color-surface2:#E0FFFE; }
+[data-theme="rose"]    { --color-primary:#E11D48; --color-primary-dark:#BE123C; --color-primary-light:#FDA4AF; --color-bg:#FFF1F2; --color-bg2:#FFE4E6; --color-surface:#FFFFFF; --color-surface2:#FFE4E6; }
+[data-theme="violet"]  { --color-primary:#7C3AED; --color-primary-dark:#6D28D9; --color-primary-light:#C4B5FD; --color-bg:#F5F3FF; --color-bg2:#EDE9FE; --color-surface:#FFFFFF; --color-surface2:#F0EEFF; }
+[data-theme="amber"]   { --color-primary:#D97706; --color-primary-dark:#B45309; --color-primary-light:#FCD34D; --color-bg:#FFFBEB; --color-bg2:#FEF3C7; --color-surface:#FFFFFF; --color-surface2:#FFF8E0; }
+
+/* === DARK + THEME COMBOS === */
+[data-mode="dark"][data-theme="saffron"] { --color-bg:#1C0A00; --color-bg2:#2A1100; --color-surface:#2D1500; --color-surface2:#3A1C00; }
+[data-mode="dark"][data-theme="forest"]  { --color-bg:#022C14; --color-bg2:#03391A; --color-surface:#064623; --color-surface2:#07552B; }
+[data-mode="dark"][data-theme="ocean"]   { --color-bg:#001E26; --color-bg2:#002A36; --color-surface:#003344; --color-surface2:#004055; }
+[data-mode="dark"][data-theme="rose"]    { --color-bg:#1C0008; --color-bg2:#28000E; --color-surface:#350011; --color-surface2:#420015; }
+[data-mode="dark"][data-theme="violet"]  { --color-bg:#0F0B1E; --color-bg2:#16102B; --color-surface:#1E1538; --color-surface2:#261B48; }
+[data-mode="dark"][data-theme="amber"]   { --color-bg:#1A1000; --color-bg2:#251800; --color-surface:#2E1E00; --color-surface2:#3A2600; }
+
+/* === GLOBAL === */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', 'Noto Sans', 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth transitions on theme/mode change */
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.2s ease, color 0.15s ease;
+}
+
+/* === UTILITY CLASSES === */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-hover:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+}
+.btn-primary:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,99,235,0.35); }
+.btn-primary:active { transform: translateY(0); }
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated upload zone pulse ring */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(37,99,235,0.3); }
+  70% { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+}
+.pulse-ring { animation: pulse-ring 2s infinite; }
+
+/* Confidence bar animate */
+@keyframes grow-bar {
+  from { width: 0%; }
+}
+.conf-bar { animation: grow-bar 1s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+
+/* Fade-in up for cards */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.4s ease forwards; }
+
+/* Shield spin (loading) */
+@keyframes shield-pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.8; }
+}
+.shield-anim { animation: shield-pulse 1.4s ease-in-out infinite; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }

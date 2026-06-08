@@ -1,0 +1,59 @@
+{
+  "app": { "title": "JanRakshak Vision", "subtitle": "Upload any photo or video — find out if it's real or AI-generated" },
+  "upload": {
+    "drag_drop": "Drop your file here", "or_click": "or tap to choose a file",
+    "images": "Photos: JPG, PNG, WEBP", "videos": "Videos: MP4, MOV, AVI",
+    "max_size": "Maximum 100MB",
+    "privacy": "Your file is analyzed and immediately deleted. Nothing is stored.",
+    "cta": "Check This File",
+    "badge": "AI-Powered Detection",
+    "stat1_val": "47%", "stat1_desc": "Indians affected by deepfakes",
+    "stat2_val": "900%", "stat2_desc": "Growth in deepfake content",
+    "stat3_val": "3 sec", "stat3_desc": "Average detection time"
+  },
+  "verdict": { "REAL": "✅ This looks REAL", "SUSPICIOUS": "⚠️ This looks SUSPICIOUS", "FAKE": "❌ This is likely FAKE / AI-Generated" },
+  "result": {
+    "confidence": "Confidence", "file_checked": "File checked", "frames": "frames analyzed",
+    "what_next": "What should you do?",
+    "next_real": "This appears genuine. Still be careful when sharing unverified content.",
+    "next_suspicious": "Verify this from other reliable sources before sharing or trusting it.",
+    "next_fake": "Do NOT share this. It may be used for fraud or misinformation.",
+    "copied": "Result copied to clipboard!"
+  },
+  "actions": { "share": "Share Result", "report_cyber": "Report to Cyber Police", "check_another": "Check Another File" },
+  "loading": {
+    "title": "Analyzing your file...",
+    "step1": "Scanning for manipulation patterns", "step2": "Checking pixel-level consistency",
+    "step3": "Comparing with AI signatures", "step4": "Generating verdict",
+    "video_note": "Videos take 15–30 seconds. Please wait..."
+  },
+  "navbar": {
+    "settings": "Settings", "theme": "Color Theme", "language": "Language",
+    "custom_color": "Custom", "advanced": "Advanced Options", "advanced_hint": "For experienced users",
+    "appearance": "Appearance", "light": "Light", "dark": "Dark"
+  },
+  "advanced": {
+    "show": "Advanced Settings", "hide": "Hide Advanced",
+    "history": "Session History", "no_history": "No files checked yet this session",
+    "sensitivity": "Detection Sensitivity",
+    "sens_low": "Low", "sens_low_desc": "Fewer false positives",
+    "sens_med": "Medium", "sens_med_desc": "Balanced (recommended)",
+    "sens_high": "High", "sens_high_desc": "Flag more suspicious content",
+    "about_model": "Model", "about_team": "Team", "about_leader": "Leader",
+    "about_event": "Event"
+  },
+  "team": {
+    "title": "Anonymous Group", "subtitle": "Tradition Hacks 2026 — AI for Cybersecurity & Digital Privacy",
+    "leader_badge": "Team Leader", "member_badge": "Member",
+    "placeholder_name": "Member Name", "placeholder_role": "Role / Contribution",
+    "placeholder_work": "Works & contributions will be listed here.",
+    "close": "Close"
+  },
+  "footer": { "tagline": "Files never stored", "event": "Tradition Hacks 2026", "team": "Anonymous Group" },
+  "errors": {
+    "wrong_type": "Wrong file type. Please upload an image or video.",
+    "too_large": "File too large. Maximum 100MB.",
+    "failed": "Analysis failed. Please try again.",
+    "network": "Connection error. Check your internet."
+  }
+}
