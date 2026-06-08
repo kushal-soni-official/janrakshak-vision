@@ -3,7 +3,7 @@
 > **AI-powered deepfake & media manipulation detection for every Indian citizen**  
 > Built in Hindi, Bengali & English — No technical knowledge required
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://janrakshak-vision.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://janrakshak-frontend.vercel.app)
 [![Backend](https://img.shields.io/badge/Backend-HuggingFace%20Spaces-yellow?logo=huggingface)](https://huggingface.co/spaces/tglprince/janrakshak-api)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
@@ -140,9 +140,9 @@ uvicorn app:app --reload --port 7860
 
 ## 🔗 Links
 
-- **Live Demo**: https://janrakshak-vision.vercel.app *(deploying Day 4)*
-- **Backend API**: https://tglprince-janrakshak-api.hf.space *(building now)*
-- **Architecture (Miro)**: *(link coming Day 4)*
+- **Live Demo**: https://janrakshak-frontend.vercel.app ✅ LIVE
+- **Backend API**: https://tglprince-janrakshak-api.hf.space ✅ LIVE
+- **Architecture (Miro)**: *(link coming soon)*
 - **GitHub**: https://github.com/kushal-soni-official/janrakshak-vision
 
 ---
