@@ -90,6 +90,7 @@ async def analyze_image(file: UploadFile = File(...)):
         "file_name": file.filename,
         "frames_analyzed": None,
         "frame_breakdown": None,
+        "model_votes": result.get("model_votes", []),
     }
 
 
@@ -142,7 +143,8 @@ async def analyze_video(file: UploadFile = File(...)):
         "file_name": file.filename,
         "frames_analyzed": total,
         "frame_breakdown": [
-            {"frame": i + 1, "verdict": r["verdict"], "confidence": r["confidence"]}
+            {"frame": i + 1, "verdict": r["verdict"], "confidence": r["confidence"],
+             "model_votes": r.get("model_votes", [])}
             for i, r in enumerate(frame_results)
         ],
     }

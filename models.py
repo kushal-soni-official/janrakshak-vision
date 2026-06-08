@@ -1,13 +1,13 @@
 """
-AI Model loading and inference — JanRakshak Vision
-Team: Anonymous Group | Leader: Kushal Soni
-Tradition Hacks 2026
+AI Model loading and inference — JanRakshak Vision v3
+Team: Anonymous Group | Leader: Kushal Soni | Tradition Hacks 2026
 
-ENSEMBLE APPROACH (2 models):
-  Model A: umm-maybe/AI-image-detector      → General AI-generated image detection
-  Model B: dima806/deepfake_vs_real_image_detection → Face deepfake detection
-  
-  Logic: Run both → take MORE suspicious result → accurate for faces AND scenic/fantasy AI images
+3-MODEL ENSEMBLE with model-specific label parsers:
+  Model 1: umm-maybe/AI-image-detector      labels: "artificial" / "nature"
+  Model 2: Organika/sdxl-detector            labels: "artificial" / "real"
+  Model 3: dima806/deepfake_vs_real_image_detection  labels: "Fake" / "Real"
+
+VOTING: Majority vote on verdict, weighted by individual confidence
 """
 
 from transformers import pipeline
@@ -16,164 +16,170 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-_pipe_general = None   # General AI image detector (non-face: pandal, donation images etc.)
-_pipe_face    = None   # Face deepfake detector
+# ── Model registry ─────────────────────────────────────────────────────────────
+MODELS = [
+    {
+        "id":   "umm-maybe/AI-image-detector",
+        "name": "general",
+        "fake_labels": ["artificial"],
+        "real_labels": ["nature"],
+    },
+    {
+        "id":   "Organika/sdxl-detector",
+        "name": "sdxl",
+        "fake_labels": ["artificial"],
+        "real_labels": ["real"],
+    },
+    {
+        "id":   "dima806/deepfake_vs_real_image_detection",
+        "name": "face",
+        "fake_labels": ["fake"],
+        "real_labels": ["real"],
+    },
+]
 
-GENERAL_MODEL = "umm-maybe/AI-image-detector"
-FACE_MODEL    = "dima806/deepfake_vs_real_image_detection"
-FACE_FALLBACK = "prithivMLmods/Deepfake-vs-Real-Image-Classification"
+_pipes = {}   # name -> pipeline or None
 
 
 def preload_model():
-    global _pipe_general, _pipe_face
-    _pipe_general = _load_general()
-    _pipe_face    = _load_face()
-    return _pipe_general is not None or _pipe_face is not None
+    for m in MODELS:
+        _pipes[m["name"]] = _try_load(m["id"], m["name"])
+    loaded = sum(1 for v in _pipes.values() if v is not None)
+    logger.info(f"✅ {loaded}/{len(MODELS)} models loaded")
+    return loaded > 0
 
 
-def _load_general():
+def _try_load(model_id: str, name: str):
     try:
-        logger.info(f"Loading general AI detector: {GENERAL_MODEL}")
-        pipe = pipeline("image-classification", model=GENERAL_MODEL, device="cpu", top_k=None)
-        logger.info(f"✅ General model loaded")
+        logger.info(f"Loading [{name}]: {model_id}")
+        pipe = pipeline("image-classification", model=model_id,
+                        device="cpu", top_k=None)
+        logger.info(f"✅ [{name}] ready")
         return pipe
     except Exception as e:
-        logger.warning(f"General model failed: {e}")
+        logger.warning(f"❌ [{name}] failed: {e}")
         return None
 
 
-def _load_face():
-    for model_id in [FACE_MODEL, FACE_FALLBACK]:
-        try:
-            logger.info(f"Loading face deepfake detector: {model_id}")
-            pipe = pipeline("image-classification", model=model_id, device="cpu", top_k=None)
-            logger.info(f"✅ Face model loaded: {model_id}")
-            return pipe
-        except Exception as e:
-            logger.warning(f"Face model {model_id} failed: {e}")
-    return None
+def _ensure_loaded():
+    for m in MODELS:
+        if m["name"] not in _pipes:
+            _pipes[m["name"]] = _try_load(m["id"], m["name"])
 
 
-def get_pipes():
-    global _pipe_general, _pipe_face
-    if _pipe_general is None:
-        _pipe_general = _load_general()
-    if _pipe_face is None:
-        _pipe_face = _load_face()
-    return _pipe_general, _pipe_face
+def _preprocess(img: Image.Image) -> Image.Image:
+    if img.mode != "RGB":
+        img = img.convert("RGB")
+    if max(img.size) > 1024:
+        img.thumbnail((1024, 1024), Image.LANCZOS)
+    return img
 
 
-def _preprocess(pil_image: Image.Image) -> Image.Image:
-    if pil_image.mode != 'RGB':
-        pil_image = pil_image.convert('RGB')
-    if max(pil_image.size) > 1024:
-        pil_image.thumbnail((1024, 1024), Image.LANCZOS)
-    return pil_image
+def _parse_fake_score(raw: list, fake_labels: list, real_labels: list) -> float:
+    """
+    Extract fake probability using model-specific label lists.
+    Labels are matched case-insensitively.
+    Returns float in [0, 1].
+    """
+    fake_score = None
+    real_score = None
 
-
-def _parse_scores(raw: list) -> dict:
-    """Normalize raw pipeline output to {FAKE: float, REAL: float}"""
-    scores = {}
     for item in raw:
-        label = item['label'].upper()
-        score = item['score']
-        if any(x in label for x in ['FAKE', 'AI', 'GENERATED', 'ARTIFICIAL', 'MANIPULATED', 'DEEPFAKE', 'MACHINE']):
-            scores['FAKE'] = max(scores.get('FAKE', 0), score)
-        elif any(x in label for x in ['REAL', 'AUTHENTIC', 'GENUINE', 'ORIGINAL', 'HUMAN', 'NATURAL']):
-            scores['REAL'] = max(scores.get('REAL', 0), score)
+        label_lower = item["label"].lower().strip()
+        score = item["score"]
 
-    # Normalize if both missing
-    if not scores:
-        scores = {'FAKE': 0.5, 'REAL': 0.5}
-    elif 'FAKE' not in scores:
-        scores['FAKE'] = 1.0 - scores.get('REAL', 0.5)
-    elif 'REAL' not in scores:
-        scores['REAL'] = 1.0 - scores.get('FAKE', 0.5)
-    return scores
+        if any(fl in label_lower for fl in fake_labels):
+            fake_score = score if fake_score is None else max(fake_score, score)
+        elif any(rl in label_lower for rl in real_labels):
+            real_score = score if real_score is None else max(real_score, score)
 
-
-def _verdict_from_fake_score(fake_score: float, confidence_override: int = None) -> dict:
-    """
-    Thresholds (tuned for ensemble):
-      FAKE       : fake_score >= 0.65
-      SUSPICIOUS : fake_score >= 0.35
-      REAL       : fake_score < 0.35
-    """
-    if fake_score >= 0.65:
-        verdict = "FAKE"
-        confidence = confidence_override or round(fake_score * 100)
-    elif fake_score >= 0.35:
-        verdict = "SUSPICIOUS"
-        confidence = confidence_override or round(fake_score * 100)
+    # Resolve
+    if fake_score is not None and real_score is not None:
+        # Normalize (in case model doesn't sum to 1)
+        total = fake_score + real_score
+        return fake_score / total if total > 0 else 0.5
+    elif fake_score is not None:
+        return fake_score
+    elif real_score is not None:
+        return 1.0 - real_score
     else:
-        verdict = "REAL"
-        confidence = confidence_override or round((1 - fake_score) * 100)
-    return {"verdict": verdict, "confidence": confidence,
-            "fake_score": round(fake_score, 4), "real_score": round(1 - fake_score, 4)}
+        logger.warning(f"Could not parse labels: {[i['label'] for i in raw]}")
+        return 0.5   # Unknown → treat as uncertain
+
+
+def _verdict(fake_score: float) -> tuple:
+    """Returns (verdict_str, confidence_int)"""
+    if fake_score >= 0.65:
+        return "FAKE", round(fake_score * 100)
+    elif fake_score >= 0.38:
+        return "SUSPICIOUS", round(fake_score * 100)
+    else:
+        return "REAL", round((1 - fake_score) * 100)
 
 
 def run_inference(pil_image: Image.Image) -> dict:
     """
-    ENSEMBLE: Run general + face models, take MORE suspicious result.
-    This catches:
-      - AI-generated scenic/fantasy images (Gemini, Midjourney, DALL-E)
-      - Face deepfakes / face swaps
-      - Celebrity manipulated photos
-      - AI pandal / donation scam images
+    Run all 3 models, collect fake scores, then:
+    1. Majority vote on verdict
+    2. Weighted confidence by number of agreeing models
+    3. If tie → take the most suspicious (safer for a safety tool)
     """
-    pipe_general, pipe_face = get_pipes()
-    if pipe_general is None and pipe_face is None:
-        raise RuntimeError("No models available. Please try again later.")
-
+    _ensure_loaded()
     img = _preprocess(pil_image)
 
-    results = []
+    individual = []   # list of {name, fake_score, verdict, confidence}
 
-    # Model A: General AI detector
-    if pipe_general is not None:
+    for m in MODELS:
+        pipe = _pipes.get(m["name"])
+        if pipe is None:
+            continue
         try:
-            raw_g = pipe_general(img)
-            scores_g = _parse_scores(raw_g)
-            fake_g = scores_g.get('FAKE', 0)
-            results.append(('general', fake_g))
-            logger.info(f"General model → fake={fake_g:.3f}")
+            raw = pipe(img)
+            fs = _parse_fake_score(raw, m["fake_labels"], m["real_labels"])
+            v, c = _verdict(fs)
+            individual.append({
+                "name": m["name"],
+                "fake_score": round(fs, 4),
+                "verdict": v,
+                "confidence": c,
+            })
+            logger.info(f"[{m['name']}] fake={fs:.3f} → {v} ({c}%)")
         except Exception as e:
-            logger.warning(f"General model inference failed: {e}")
+            logger.warning(f"[{m['name']}] inference error: {e}")
 
-    # Model B: Face deepfake detector
-    if pipe_face is not None:
-        try:
-            raw_f = pipe_face(img)
-            scores_f = _parse_scores(raw_f)
-            fake_f = scores_f.get('FAKE', 0)
-            results.append(('face', fake_f))
-            logger.info(f"Face model   → fake={fake_f:.3f}")
-        except Exception as e:
-            logger.warning(f"Face model inference failed: {e}")
+    if not individual:
+        raise RuntimeError("All models failed. Please try again later.")
 
-    if not results:
-        raise RuntimeError("All models failed on this image.")
+    # ── Voting ──────────────────────────────────────────────────────────────
+    counts = {"FAKE": 0, "SUSPICIOUS": 0, "REAL": 0}
+    score_sum = {"FAKE": 0.0, "SUSPICIOUS": 0.0, "REAL": 0.0}
 
-    if len(results) == 1:
-        # Only one model succeeded — use it directly
-        _, fake_score = results[0]
-    else:
-        # ENSEMBLE: weighted combination
-        # General model gets higher weight for overall AI detection
-        # Face model gets higher weight when general says uncertain (0.35-0.65)
-        fake_general = dict(results).get('general', 0.5)
-        fake_face    = dict(results).get('face', 0.5)
+    for r in individual:
+        counts[r["verdict"]] += 1
+        score_sum[r["verdict"]] += r["fake_score"]
 
-        # If general model strongly says AI (>0.7), trust it
-        if fake_general >= 0.70:
-            fake_score = fake_general * 0.7 + fake_face * 0.3
-        # If face model strongly says fake face (>0.80), trust it
-        elif fake_face >= 0.80:
-            fake_score = fake_general * 0.3 + fake_face * 0.7
-        else:
-            # Balanced: take MAX (more suspicious wins)
-            fake_score = max(fake_general, fake_face)
+    # Pick winner by majority; tie-break: most suspicious wins (safety tool)
+    verdict_order = ["FAKE", "SUSPICIOUS", "REAL"]
+    winner = max(verdict_order, key=lambda v: (counts[v], -verdict_order.index(v)))
 
-        logger.info(f"Ensemble → general={fake_general:.3f}, face={fake_face:.3f}, final={fake_score:.3f}")
+    # Final fake_score = average of scores from WINNING models
+    winners = [r for r in individual if r["verdict"] == winner]
+    avg_fake = sum(r["fake_score"] for r in winners) / len(winners)
 
-    return _verdict_from_fake_score(fake_score)
+    # Blend in minority scores slightly (10% each) for smoother confidence
+    others = [r for r in individual if r["verdict"] != winner]
+    if others:
+        minority_avg = sum(r["fake_score"] for r in others) / len(others)
+        avg_fake = avg_fake * 0.85 + minority_avg * 0.15
+
+    _, final_conf = _verdict(avg_fake)
+
+    logger.info(f"ENSEMBLE: {counts} → {winner} ({final_conf}%) fake={avg_fake:.3f}")
+
+    return {
+        "verdict":    winner,
+        "confidence": final_conf,
+        "fake_score": round(avg_fake, 4),
+        "real_score": round(1 - avg_fake, 4),
+        "model_votes": individual,   # debug info in response
+    }
