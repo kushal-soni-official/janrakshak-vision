@@ -19,9 +19,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Pre-download AI model during Docker build (speeds up first request)
-RUN python -c "from models import preload_model; preload_model()"
-
 EXPOSE 7860
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860", "--workers", "1"]
