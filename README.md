@@ -4,7 +4,7 @@
 > Built in Hindi, Bengali & English — No technical knowledge required
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://janrakshak-vision.vercel.app)
-[![Backend](https://img.shields.io/badge/Backend-HuggingFace%20Spaces-yellow?logo=huggingface)](https://huggingface.co/spaces/Kushal-soni-official/janrakshak-api)
+[![Backend](https://img.shields.io/badge/Backend-HuggingFace%20Spaces-yellow?logo=huggingface)](https://huggingface.co/spaces/tglprince/janrakshak-api)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
 ---
@@ -84,17 +84,17 @@ Back to User
 
 ### Frontend
 ```bash
-git clone https://github.com/Kushal-soni-official/janrakshak-vision
+git clone https://github.com/kushal-soni-official/janrakshak-vision
 cd janrakshak-vision
 npm install
 # Create .env file:
-echo "VITE_BACKEND_URL=https://kushal-soni-official-janrakshak-api.hf.space" > .env
+echo "VITE_BACKEND_URL=https://tglprince-janrakshak-api.hf.space" > .env
 npm run dev
 ```
 
 ### Backend
 ```bash
-git clone https://huggingface.co/spaces/Kushal-soni-official/janrakshak-api
+git clone https://huggingface.co/spaces/tglprince/janrakshak-api
 cd janrakshak-api
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
@@ -140,10 +140,10 @@ uvicorn app:app --reload --port 7860
 
 ## 🔗 Links
 
-- **Live Demo**: https://janrakshak-vision.vercel.app *(coming Day 4)*
-- **Backend API**: https://huggingface.co/spaces/Kushal-soni-official/janrakshak-api *(coming Day 1 evening)*
+- **Live Demo**: https://janrakshak-vision.vercel.app *(deploying Day 4)*
+- **Backend API**: https://tglprince-janrakshak-api.hf.space *(building now)*
 - **Architecture (Miro)**: *(link coming Day 4)*
-- **GitHub**: https://github.com/Kushal-soni-official/janrakshak-vision
+- **GitHub**: https://github.com/kushal-soni-official/janrakshak-vision
 
 ---
 
