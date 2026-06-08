@@ -60,19 +60,19 @@ def generate_explanations(verdict: str, confidence: int, file_type: str = "image
 
     expl = {
         "FAKE": {
-            "en": f"This {t['en']} shows {confidence}% signs of AI manipulation. It was likely created or edited by AI tools. Do not trust or share this content.",
-            "hi": f"इस {t['hi']} में {confidence}% AI हेरफेर के संकेत हैं। यह AI टूल्स से बनाई या बदली गई हो सकती है। इस पर विश्वास न करें और शेयर न करें।",
-            "bn": f"এই {t['bn']}তে {confidence}% AI কারসাজির লক্ষণ দেখা যাচ্ছে। এটি AI টুলস দিয়ে তৈরি বা পরিবর্তন করা হতে পারে। বিশ্বাস করবেন না বা শেয়ার করবেন না।",
+            "en": f"This {t['en']} shows {confidence}% signs of AI generation or manipulation. It was likely created by AI tools like Midjourney, DALL-E, or Gemini, or is a face deepfake. Do NOT trust, share, or use this as evidence.",
+            "hi": f"इस {t['hi']} में {confidence}% AI निर्माण या हेरफेर के संकेत हैं। यह Midjourney, DALL-E या Gemini जैसे AI टूल्स से बनाई गई हो सकती है या फेस डीपफेक हो सकती है। इसे साक्ष्य के रूप में उपयोग, शेयर या विश्वास न करें।",
+            "bn": f"এই {t['bn']}তে {confidence}% AI তৈরি বা কারসাজির লক্ষণ দেখা যাচ্ছে। এটি Midjourney, DALL-E বা Gemini-এর মতো AI টুলস দিয়ে তৈরি হতে পারে বা ফেস ডিপফেক হতে পারে। এটি বিশ্বাস, শেয়ার বা প্রমাণ হিসেবে ব্যবহার করবেন না।",
         },
         "SUSPICIOUS": {
-            "en": f"This {t['en']} shows unusual patterns ({confidence}% confidence). It may have been partially modified. Verify from a trusted source before sharing.",
-            "hi": f"इस {t['hi']} में कुछ असामान्य पैटर्न हैं ({confidence}% विश्वास)। यह आंशिक रूप से बदली गई हो सकती है। शेयर करने से पहले पुष्टि करें।",
-            "bn": f"এই {t['bn']}তে কিছু অস্বাভাবিক প্যাটার্ন রয়েছে ({confidence}% আত্মবিশ্বাস)। শেয়ার করার আগে বিশ্বস্ত সূত্র থেকে নিশ্চিত করুন।",
+            "en": f"This {t['en']} has unusual patterns ({confidence}% AI probability). It may be partially AI-generated or edited. Verify from a trusted source before sharing or using as evidence.",
+            "hi": f"इस {t['hi']} में कुछ असामान्य पैटर्न हैं ({confidence}% AI संभावना)। यह आंशिक रूप से AI से बनाई या संपादित हो सकती है। शेयर करने या साक्ष्य के रूप में उपयोग करने से पहले किसी विश्वसनीय स्रोत से पुष्टि करें।",
+            "bn": f"এই {t['bn']}তে কিছু অস্বাভাবিক প্যাটার্ন রয়েছে ({confidence}% AI সম্ভাবনা)। এটি আংশিকভাবে AI-তৈরি বা সম্পাদিত হতে পারে। শেয়ার করার বা প্রমাণ হিসেবে ব্যবহারের আগে বিশ্বস্ত সূত্র থেকে নিশ্চিত করুন।",
         },
         "REAL": {
-            "en": f"This {t['en']} appears authentic ({confidence}% confidence). No clear signs of AI manipulation detected. Always stay cautious with viral content.",
-            "hi": f"यह {t['hi']} असली लगती है ({confidence}% विश्वास)। AI हेरफेर के कोई स्पष्ट संकेत नहीं मिले। फिर भी वायरल सामग्री से सावधान रहें।",
-            "bn": f"এই {t['bn']}টি আসল বলে মনে হচ্ছে ({confidence}% আত্মবিশ্বাস)। AI কারসাজির কোনো স্পষ্ট লক্ষণ পাওয়া যায়নি। তবুও সতর্ক থাকুন।",
+            "en": f"This {t['en']} appears authentic ({confidence}% confidence). No strong signs of AI generation or manipulation detected. Still — always verify viral content before sharing.",
+            "hi": f"यह {t['hi']} असली लगती है ({confidence}% विश्वास)। AI निर्माण या हेरफेर के कोई मजबूत संकेत नहीं मिले। फिर भी — वायरल सामग्री शेयर करने से पहले हमेशा जाँच करें।",
+            "bn": f"এই {t['bn']}টি আসল বলে মনে হচ্ছে ({confidence}% আত্মবিশ্বাস)। AI তৈরি বা কারসাজির কোনো শক্তিশালী লক্ষণ পাওয়া যায়নি। তবুও — শেয়ার করার আগে সর্বদা যাচাই করুন।",
         },
     }
     return expl.get(verdict, expl["SUSPICIOUS"])
