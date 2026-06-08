@@ -1,13 +1,22 @@
 """
-AI Model loading and inference — JanRakshak Vision v3
+AI Model loading and inference — JanRakshak Vision v4
 Team: Anonymous Group | Leader: Kushal Soni | Tradition Hacks 2026
 
-3-MODEL ENSEMBLE with model-specific label parsers:
-  Model 1: umm-maybe/AI-image-detector      labels: "artificial" / "nature"
-  Model 2: Organika/sdxl-detector            labels: "artificial" / "real"
-  Model 3: dima806/deepfake_vs_real_image_detection  labels: "Fake" / "Real"
+DATA-DRIVEN ENSEMBLE (from real test results):
 
-VOTING: Majority vote on verdict, weighted by individual confidence
+Test results on 6 images:
+  Model         AI-art  Scenic  Anime  Edited  Screenshot
+  general       0.21    0.51    0.51   0.92    0.80 (false+)
+  sdxl          0.0002  0.785   0.056  0.87    0.33 (good!)
+  face          0.08    0.29    0.009  0.002   0.17 (useless)
+
+Strategy:
+  - REMOVE face model (noise, always near-zero for non-face)
+  - PRIMARY = sdxl (reliable, low false positives)
+  - SECONDARY = general (catches edited photos but erratic)
+  - BLEND: 70% sdxl + 30% general
+  - If sdxl < 0.1 AND general > 0.5 → use MAX (catch missed edits)
+  - THRESHOLDS: FAKE>=0.58, SUSPICIOUS>=0.28, else REAL
 """
 
 from transformers import pipeline
@@ -16,29 +25,25 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# ── Model registry ─────────────────────────────────────────────────────────────
+# Only 2 models now — face model removed (proven useless from testing)
 MODELS = [
-    {
-        "id":   "umm-maybe/AI-image-detector",
-        "name": "general",
-        "fake_labels": ["artificial"],
-        "real_labels": ["nature"],
-    },
     {
         "id":   "Organika/sdxl-detector",
         "name": "sdxl",
         "fake_labels": ["artificial"],
         "real_labels": ["real"],
+        "weight": 0.70,
     },
     {
-        "id":   "dima806/deepfake_vs_real_image_detection",
-        "name": "face",
-        "fake_labels": ["fake"],
-        "real_labels": ["real"],
+        "id":   "umm-maybe/AI-image-detector",
+        "name": "general",
+        "fake_labels": ["artificial"],
+        "real_labels": ["nature"],
+        "weight": 0.30,
     },
 ]
 
-_pipes = {}   # name -> pipeline or None
+_pipes = {}
 
 
 def preload_model():
@@ -76,26 +81,18 @@ def _preprocess(img: Image.Image) -> Image.Image:
 
 
 def _parse_fake_score(raw: list, fake_labels: list, real_labels: list) -> float:
-    """
-    Extract fake probability using model-specific label lists.
-    Labels are matched case-insensitively.
-    Returns float in [0, 1].
-    """
+    """Extract fake probability using model-specific label lists (case-insensitive)."""
     fake_score = None
     real_score = None
-
     for item in raw:
-        label_lower = item["label"].lower().strip()
-        score = item["score"]
+        lbl = item["label"].lower().strip()
+        sc  = item["score"]
+        if any(fl in lbl for fl in fake_labels):
+            fake_score = sc if fake_score is None else max(fake_score, sc)
+        elif any(rl in lbl for rl in real_labels):
+            real_score = sc if real_score is None else max(real_score, sc)
 
-        if any(fl in label_lower for fl in fake_labels):
-            fake_score = score if fake_score is None else max(fake_score, score)
-        elif any(rl in label_lower for rl in real_labels):
-            real_score = score if real_score is None else max(real_score, score)
-
-    # Resolve
     if fake_score is not None and real_score is not None:
-        # Normalize (in case model doesn't sum to 1)
         total = fake_score + real_score
         return fake_score / total if total > 0 else 0.5
     elif fake_score is not None:
@@ -103,31 +100,39 @@ def _parse_fake_score(raw: list, fake_labels: list, real_labels: list) -> float:
     elif real_score is not None:
         return 1.0 - real_score
     else:
-        logger.warning(f"Could not parse labels: {[i['label'] for i in raw]}")
-        return 0.5   # Unknown → treat as uncertain
+        logger.warning(f"Unknown labels: {[i['label'] for i in raw]}")
+        return 0.5
 
 
 def _verdict(fake_score: float) -> tuple:
-    """Returns (verdict_str, confidence_int)"""
-    if fake_score >= 0.65:
-        return "FAKE", round(fake_score * 100)
-    elif fake_score >= 0.38:
+    """
+    Tuned thresholds based on real test data:
+      FAKE:       fake_score >= 0.58
+      SUSPICIOUS: fake_score >= 0.28
+      REAL:       fake_score <  0.28
+    """
+    if fake_score >= 0.58:
+        return "FAKE",       round(fake_score * 100)
+    elif fake_score >= 0.28:
         return "SUSPICIOUS", round(fake_score * 100)
     else:
-        return "REAL", round((1 - fake_score) * 100)
+        return "REAL",       round((1 - fake_score) * 100)
 
 
 def run_inference(pil_image: Image.Image) -> dict:
     """
-    Run all 3 models, collect fake scores, then:
-    1. Majority vote on verdict
-    2. Weighted confidence by number of agreeing models
-    3. If tie → take the most suspicious (safer for a safety tool)
+    DATA-DRIVEN ENSEMBLE:
+    1. Run sdxl (primary, weight=0.70) + general (secondary, weight=0.30)
+    2. Blend: 70% sdxl + 30% general
+    3. Edge case: if sdxl very confident REAL (<0.10) but general strongly says FAKE (>0.55)
+       → use MAX to avoid missing edited real photos (Joker/composite case)
+    4. Fallback: if only one model runs, use it directly
     """
     _ensure_loaded()
     img = _preprocess(pil_image)
 
-    individual = []   # list of {name, fake_score, verdict, confidence}
+    scores = {}   # name -> fake_score
+    individual = []
 
     for m in MODELS:
         pipe = _pipes.get(m["name"])
@@ -135,51 +140,44 @@ def run_inference(pil_image: Image.Image) -> dict:
             continue
         try:
             raw = pipe(img)
-            fs = _parse_fake_score(raw, m["fake_labels"], m["real_labels"])
+            fs  = _parse_fake_score(raw, m["fake_labels"], m["real_labels"])
             v, c = _verdict(fs)
-            individual.append({
-                "name": m["name"],
-                "fake_score": round(fs, 4),
-                "verdict": v,
-                "confidence": c,
-            })
-            logger.info(f"[{m['name']}] fake={fs:.3f} → {v} ({c}%)")
+            scores[m["name"]] = fs
+            individual.append({"name": m["name"], "fake_score": round(fs, 4), "verdict": v, "confidence": c})
+            logger.info(f"[{m['name']}] fake={fs:.4f} → {v} ({c}%)")
         except Exception as e:
-            logger.warning(f"[{m['name']}] inference error: {e}")
+            logger.warning(f"[{m['name']}] error: {e}")
 
-    if not individual:
-        raise RuntimeError("All models failed. Please try again later.")
+    if not scores:
+        raise RuntimeError("All models failed. Please try again.")
 
-    # ── Voting ──────────────────────────────────────────────────────────────
-    counts = {"FAKE": 0, "SUSPICIOUS": 0, "REAL": 0}
-    score_sum = {"FAKE": 0.0, "SUSPICIOUS": 0.0, "REAL": 0.0}
+    if len(scores) == 1:
+        # Only one model available — use it
+        name, fs = next(iter(scores.items()))
+        final_fake = fs
+    else:
+        sdxl_score    = scores.get("sdxl", 0.5)
+        general_score = scores.get("general", 0.5)
 
-    for r in individual:
-        counts[r["verdict"]] += 1
-        score_sum[r["verdict"]] += r["fake_score"]
+        # Edge case: sdxl very confident REAL but general strongly says FAKE
+        # (catches composite edits like Joker + Thanos gauntlet)
+        if sdxl_score < 0.10 and general_score > 0.55:
+            # Trust general more — use MAX
+            final_fake = max(sdxl_score, general_score)
+            logger.info(f"Edge case: sdxl={sdxl_score:.3f} vs general={general_score:.3f} → MAX={final_fake:.3f}")
+        else:
+            # Standard blend: 70% sdxl + 30% general
+            final_fake = 0.70 * sdxl_score + 0.30 * general_score
+            logger.info(f"Blend: 0.7*{sdxl_score:.3f} + 0.3*{general_score:.3f} = {final_fake:.3f}")
 
-    # Pick winner by majority; tie-break: most suspicious wins (safety tool)
-    verdict_order = ["FAKE", "SUSPICIOUS", "REAL"]
-    winner = max(verdict_order, key=lambda v: (counts[v], -verdict_order.index(v)))
+    verdict, confidence = _verdict(final_fake)
 
-    # Final fake_score = average of scores from WINNING models
-    winners = [r for r in individual if r["verdict"] == winner]
-    avg_fake = sum(r["fake_score"] for r in winners) / len(winners)
-
-    # Blend in minority scores slightly (10% each) for smoother confidence
-    others = [r for r in individual if r["verdict"] != winner]
-    if others:
-        minority_avg = sum(r["fake_score"] for r in others) / len(others)
-        avg_fake = avg_fake * 0.85 + minority_avg * 0.15
-
-    _, final_conf = _verdict(avg_fake)
-
-    logger.info(f"ENSEMBLE: {counts} → {winner} ({final_conf}%) fake={avg_fake:.3f}")
+    logger.info(f"FINAL: {verdict} ({confidence}%) fake_score={final_fake:.4f}")
 
     return {
-        "verdict":    winner,
-        "confidence": final_conf,
-        "fake_score": round(avg_fake, 4),
-        "real_score": round(1 - avg_fake, 4),
-        "model_votes": individual,   # debug info in response
+        "verdict":     verdict,
+        "confidence":  confidence,
+        "fake_score":  round(final_fake, 4),
+        "real_score":  round(1 - final_fake, 4),
+        "model_votes": individual,
     }
