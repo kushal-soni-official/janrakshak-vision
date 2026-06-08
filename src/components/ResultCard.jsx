@@ -15,12 +15,34 @@ export default function ResultCard({ result, fileName, onReset }) {
   const explanation = result.explanation?.[i18n.language] || result.explanation?.en || ''
   const nextKey = `result.next_${result.verdict.toLowerCase()}`
 
-  const handleShare = async () => {
-    const text = `🛡️ JanRakshak Vision Result:\n${t(`verdict.${result.verdict}`)}\n${t('result.confidence')}: ${result.confidence}%\n\n${window.location.href}`
-    try {
-      if (navigator.share) { await navigator.share({ text }) }
-      else { await navigator.clipboard.writeText(text); toast.success(t('result.copied')) }
-    } catch { toast.error(t('errors.failed')) }
+  const handleShare = () => {
+    const text = `🛡️ JanRakshak Vision Result:\n${t(`verdict.${result.verdict}`)}\nConfidence: ${result.confidence}%\n\nCheck your media: https://janrakshak-frontend.vercel.app`
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent)
+    if (isMobile && navigator.share) {
+      navigator.share({ title: 'JanRakshak Vision', text }).catch(() => copyToClipboard(text))
+    } else {
+      copyToClipboard(text)
+    }
+  }
+
+  const copyToClipboard = (text) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text)
+        .then(() => toast.success(t('result.copied')))
+        .catch(() => legacyCopy(text))
+    } else {
+      legacyCopy(text)
+    }
+  }
+
+  const legacyCopy = (text) => {
+    const ta = document.createElement('textarea')
+    ta.value = text
+    ta.style.position = 'fixed'; ta.style.opacity = '0'
+    document.body.appendChild(ta); ta.focus(); ta.select()
+    try { document.execCommand('copy'); toast.success(t('result.copied')) }
+    catch { toast.error('Copy failed — please copy manually') }
+    document.body.removeChild(ta)
   }
 
   return (
