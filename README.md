@@ -1,3 +1,13 @@
+---
+title: Janrakshak API
+emoji: 🛡️
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+app_port: 7860
+---
+
 # 🛡️ JanRakshak Vision — Backend API
 
 > **AI Deepfake Detection Backend** | JanRakshak Vision | Tradition Hacks 2026  
