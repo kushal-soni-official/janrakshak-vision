@@ -1,1 +1,1 @@
-docs: update API URL to ofc01 and add team members
+docs: update Miro architecture image and real crime incidents in README
