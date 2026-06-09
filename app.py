@@ -91,7 +91,8 @@ async def health():
         "limits": {
             "image_max": "50MB",
             "video_max": "100MB",
-            "rate": "10 requests/minute per IP",
+            "rate_image": "10 requests/minute per IP",
+            "rate_video": "5 requests/minute per IP",
         },
     }
 
@@ -217,12 +218,15 @@ async def analyze_video(request: Request, file: UploadFile = File(...)):
     else:
         final_verdict = "REAL"
 
+    avg_fake_score = round(sum(r["fake_score"] for r in frame_results) / total, 4)
     avg_conf = round(sum(r["confidence"] for r in frame_results) / total)
     logger.info(f"Video verdict: {final_verdict} ({avg_conf}%) — {total} frames, {fake_n} FAKE, {susp_n} SUSPICIOUS")
 
     return {
         "verdict":         final_verdict,
         "confidence":      avg_conf,
+        "fake_score":      avg_fake_score,
+        "real_score":      round(1 - avg_fake_score, 4),
         "explanation":     generate_explanations(final_verdict, avg_conf, "video"),
         "file_type":       "video",
         "file_name":       file.filename,
