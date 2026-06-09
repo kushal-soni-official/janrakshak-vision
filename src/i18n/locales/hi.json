@@ -45,15 +45,16 @@
   "team": {
     "title": "Anonymous Group", "subtitle": "Tradition Hacks 2026 — AI साइबर सुरक्षा के लिए",
     "leader_badge": "टीम लीडर", "member_badge": "सदस्य",
-    "placeholder_name": "सदस्य का नाम", "placeholder_role": "भूमिका / योगदान",
-    "placeholder_work": "कार्य और योगदान यहाँ सूचीबद्ध होंगे।",
     "close": "बंद करें"
   },
   "footer": { "tagline": "फ़ाइलें कभी सेव नहीं होतीं", "event": "Tradition Hacks 2026", "team": "Anonymous Group" },
   "errors": {
     "wrong_type": "गलत फ़ाइल प्रकार। तस्वीर या वीडियो अपलोड करें।",
+    "too_large_image": "तस्वीर बहुत बड़ी है। तस्वीरों के लिए अधिकतम 50MB।",
+    "too_large_video": "वीडियो बहुत बड़ा है। वीडियो के लिए अधिकतम 100MB।",
     "too_large": "फ़ाइल बहुत बड़ी है। अधिकतम 100MB।",
     "failed": "जाँच विफल। कृपया फिर से कोशिश करें।",
-    "network": "कनेक्शन त्रुटि। इंटरनेट जाँचें।"
+    "network": "कनेक्शन त्रुटि। इंटरनेट जाँचें और फिर कोशिश करें।",
+    "timeout": "अनुरोध समय समाप्त हो गया (>2 मिनट)। छोटी फ़ाइल आज़माएं।"
   }
 }

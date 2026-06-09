@@ -45,15 +45,16 @@
   "team": {
     "title": "Anonymous Group", "subtitle": "Tradition Hacks 2026 — AI for Cybersecurity & Digital Privacy",
     "leader_badge": "Team Leader", "member_badge": "Member",
-    "placeholder_name": "Member Name", "placeholder_role": "Role / Contribution",
-    "placeholder_work": "Works & contributions will be listed here.",
     "close": "Close"
   },
   "footer": { "tagline": "Files never stored", "event": "Tradition Hacks 2026", "team": "Anonymous Group" },
   "errors": {
     "wrong_type": "Wrong file type. Please upload an image or video.",
+    "too_large_image": "Image too large. Maximum size for images is 50MB.",
+    "too_large_video": "Video too large. Maximum size for videos is 100MB.",
     "too_large": "File too large. Maximum 100MB.",
     "failed": "Analysis failed. Please try again.",
-    "network": "Connection error. Check your internet."
+    "network": "Connection error. Check your internet and try again.",
+    "timeout": "Request timed out (>2 min). Try a smaller file or check your connection."
   }
 }

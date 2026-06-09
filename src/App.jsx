@@ -31,7 +31,13 @@ function AppContent() {
       setStage('result')
     } catch (err) {
       console.error(err)
-      toast.error(t('errors.failed'))
+      if (err.message === 'Request timed out') {
+        toast.error(t('errors.timeout'))
+      } else if (err.message?.includes('fetch') || err.message?.includes('network')) {
+        toast.error(t('errors.network'))
+      } else {
+        toast.error(err.message || t('errors.failed'))
+      }
       setStage('upload')
     }
   }

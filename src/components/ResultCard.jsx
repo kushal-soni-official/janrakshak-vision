@@ -12,7 +12,7 @@ export default function ResultCard({ result, fileName, onReset }) {
   const { t, i18n } = useTranslation()
   const cfg = VERDICT_MAP[result.verdict] || VERDICT_MAP.SUSPICIOUS
   const { Icon } = cfg
-  const explanation = result.explanation?.[i18n.language] || result.explanation?.en || ''
+  const explanation = result.explanation?.[i18n.language.split('-')[0]] || result.explanation?.en || ''
   const nextKey = `result.next_${result.verdict.toLowerCase()}`
 
   const handleShare = () => {
