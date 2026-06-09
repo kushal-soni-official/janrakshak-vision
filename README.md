@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/preview-home.jpg" alt="JanRakshak Vision — Home Screen" width="700"/>
+<img src="docs/assets/preview-home.png" alt="JanRakshak Vision — Home Screen" width="700"/>
 
 # 🛡️ JanRakshak Vision
 
@@ -55,17 +55,17 @@ Anyone → Upload photo or video → Get plain-language verdict in < 5 seconds
 ## 🖥️ App Preview
 
 <div align="center">
-<img src="docs/assets/preview-home.jpg" alt="Home Screen" width="700"/>
+<img src="docs/assets/preview-home.png" alt="Home Screen" width="700"/>
 <br/><em>Home Screen — Simple drag-and-drop upload, no login needed</em>
 
 <br/><br/>
 
-<img src="docs/assets/preview-analyzing.jpg" alt="Analyzing Screen" width="700"/>
+<img src="docs/assets/preview-analyzing.png" alt="Analyzing Screen" width="700"/>
 <br/><em>Analysis Screen — Real-time progress with AI model status</em>
 
 <br/><br/>
 
-<img src="docs/assets/preview-result.jpg" alt="Result Screen" width="700"/>
+<img src="docs/assets/preview-result.png" alt="Result Screen" width="700"/>
 <br/><em>Result Screen — Instant plain-language verdict and explanation</em>
 
 <br/><br/>
