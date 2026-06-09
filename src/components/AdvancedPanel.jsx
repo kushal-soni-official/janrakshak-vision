@@ -5,14 +5,6 @@ import { ChevronDown, ChevronUp, Clock, SlidersHorizontal, Info } from 'lucide-r
 export default function AdvancedPanel({ history = [] }) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [sensitivity, setSensitivity] = useState('medium')
-
-  const SENS = [
-    { value: 'low',    label: t('advanced.sens_low'),  desc: t('advanced.sens_low_desc')  },
-    { value: 'medium', label: t('advanced.sens_med'),  desc: t('advanced.sens_med_desc')  },
-    { value: 'high',   label: t('advanced.sens_high'), desc: t('advanced.sens_high_desc') },
-  ]
-
   return (
     <div>
       <button
@@ -31,30 +23,6 @@ export default function AdvancedPanel({ history = [] }) {
       {open && (
         <div className="mt-3 space-y-4 p-4 rounded-xl fade-in-up"
           style={{ backgroundColor: 'var(--color-surface2)', border: '1px solid var(--color-border)' }}>
-
-          {/* Sensitivity */}
-          <div>
-            <p className="text-xs font-bold mb-2 flex items-center gap-1.5" style={{ color: 'var(--color-text)' }}>
-              <SlidersHorizontal size={12} style={{ color: 'var(--color-primary)' }} />
-              {t('advanced.sensitivity')}
-            </p>
-            <div className="flex gap-2">
-              {SENS.map(s => (
-                <button key={s.value} onClick={() => setSensitivity(s.value)} title={s.desc}
-                  className="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all"
-                  style={{
-                    backgroundColor: sensitivity === s.value ? 'var(--color-primary)' : 'var(--color-surface)',
-                    color: sensitivity === s.value ? 'white' : 'var(--color-text)',
-                    border: sensitivity === s.value ? '1.5px solid var(--color-primary)' : '1px solid var(--color-border)',
-                  }}>
-                  {s.label}
-                </button>
-              ))}
-            </div>
-            <p className="text-xs mt-1.5 font-medium" style={{ color: 'var(--color-text-muted)' }}>
-              {SENS.find(s => s.value === sensitivity)?.desc}
-            </p>
-          </div>
 
           {/* Session History */}
           <div>
@@ -88,7 +56,7 @@ export default function AdvancedPanel({ history = [] }) {
           {/* About */}
           <div className="pt-2 border-t space-y-1" style={{ borderColor: 'var(--color-border)' }}>
             {[
-              [t('advanced.about_model'),  'EfficientNet (dima806)'],
+              [t('advanced.about_model'),  '3-Brain Ensemble (v7)'],
               [t('advanced.about_team'),   'Anonymous Group'],
               [t('advanced.about_event'),  'Tradition Hacks 2026'],
             ].map(([label, value]) => (

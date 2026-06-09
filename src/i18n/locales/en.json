@@ -1,5 +1,5 @@
 {
-  "app": { "title": "JanRakshak Vision", "subtitle": "Upload any photo or video — find out if it's real or AI-generated" },
+  "app": { "title": "JanRakshak Vision", "subtitle": "Upload any photo, video or screenshot — detect AI-generated content, deepfakes & manipulation" },
   "upload": {
     "drag_drop": "Drop your file here", "or_click": "or tap to choose a file",
     "images": "Photos: JPG, PNG, WEBP", "videos": "Videos: MP4, MOV, AVI",
@@ -7,9 +7,9 @@
     "privacy": "Your file is analyzed and immediately deleted. Nothing is stored.",
     "cta": "Check This File",
     "badge": "AI-Powered Detection",
-    "stat1_val": "47%", "stat1_desc": "Indians affected by deepfakes",
-    "stat2_val": "900%", "stat2_desc": "Growth in deepfake content",
-    "stat3_val": "3 sec", "stat3_desc": "Average detection time"
+    "stat1_val": "47%", "stat1_desc": "Indians targeted by deepfake scams",
+    "stat2_val": "₹22,495 Cr", "stat2_desc": "Lost to cybercrime in 2025 (Govt data)",
+    "stat3_val": "8–15 Sec", "stat3_desc": "Average detection time"
   },
   "verdict": { "REAL": "✅ This looks REAL", "SUSPICIOUS": "⚠️ This looks SUSPICIOUS", "FAKE": "❌ This is likely FAKE / AI-Generated" },
   "result": {

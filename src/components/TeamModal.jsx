@@ -26,7 +26,7 @@ const TEAM_MEMBERS = [
     role: 'Member',
     isLeader: false,
     github: '#',
-    works: ['None (0 CONTRIBUTIONS)'],
+    works: [],
     avatar: 'V',
   },
 ]
