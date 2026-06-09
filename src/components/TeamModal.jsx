@@ -1,34 +1,33 @@
 import { useTranslation } from 'react-i18next'
 import { X, ExternalLink, Star, Crown } from 'lucide-react'
 
-// ── PLACEHOLDER — Replace with real member data when provided ──
 const TEAM_MEMBERS = [
   {
     id: 1,
-    name: 'Member Name 1',
-    role: 'Role / Designation',
+    name: 'Kushal Soni',
+    role: 'Front end | Back end | AI/ML Integration',
     isLeader: true,
-    github: 'https://github.com/',
-    works: ['Work / Contribution 1', 'Work / Contribution 2', 'Work / Contribution 3'],
-    avatar: '👤',
+    github: 'https://github.com/kushal-soni-official',
+    works: ['Front end', 'Back end', 'AI/ML Integration'],
+    avatar: 'K',
   },
   {
     id: 2,
-    name: 'Member Name 2',
-    role: 'Role / Designation',
+    name: 'Vinod Kumar Prajapat',
+    role: 'Testing | Miro Architecture | Presentation',
     isLeader: false,
-    github: 'https://github.com/',
-    works: ['Work / Contribution 1', 'Work / Contribution 2'],
-    avatar: '👤',
+    github: '#',
+    works: ['Miro architecture design', 'Testing and debugging', 'Presentation'],
+    avatar: 'V',
   },
   {
     id: 3,
-    name: 'Member Name 3',
-    role: 'Role / Designation',
+    name: 'Vishal Vishwakarma',
+    role: 'Member',
     isLeader: false,
-    github: 'https://github.com/',
-    works: ['Work / Contribution 1', 'Work / Contribution 2'],
-    avatar: '👤',
+    github: '#',
+    works: ['None (0 CONTRIBUTIONS)'],
+    avatar: 'V',
   },
 ]
 

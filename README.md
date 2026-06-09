@@ -16,8 +16,8 @@
 | Service | URL |
 |---|---|
 | **Frontend (Vercel)** | https://janrakshak-frontend.vercel.app |
-| **Backend API** | https://tglprince-janrakshak-api.hf.space |
-| **API Docs** | https://tglprince-janrakshak-api.hf.space/docs |
+| **Backend API** | https://ofc01-janrakshak-api.hf.space |
+| **API Docs** | https://ofc01-janrakshak-api.hf.space/docs |
 
 ---
 
@@ -71,7 +71,7 @@ JanRakshak Vision is a **zero-friction deepfake detection platform** where anyon
 npm install
 
 # Set backend URL
-echo "VITE_BACKEND_URL=https://tglprince-janrakshak-api.hf.space" > .env
+echo "VITE_BACKEND_URL=https://ofc01-janrakshak-api.hf.space" > .env
 
 # Start dev server
 npm run dev
@@ -155,7 +155,8 @@ janrakshak-frontend/
 | Role | Name |
 |---|---|
 | Team Leader | Kushal Soni |
-| Members | _Click "Anonymous Group" in footer to see team_ |
+| Member | Vinod Kumar Prajapat |
+| Member | Vishal Vishwakarma |
 
 ---
 

@@ -1,4 +1,4 @@
-const BACKEND = import.meta.env.VITE_BACKEND_URL || 'https://your-hf-space.hf.space'
+const BACKEND = import.meta.env.VITE_BACKEND_URL || 'https://ofc01-janrakshak-api.hf.space'
 
 export async function analyzeFile(file) {
   const isVideo = file.type.startsWith('video/')
