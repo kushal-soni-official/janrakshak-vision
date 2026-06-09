@@ -201,20 +201,25 @@ Instead of just averaging the scores, our algorithmic engine applies advanced lo
 - 🛡️ **Composite Protection Floor:** If the composite detector strongly flags an image as edited, the final result is mathematically floored to at least "SUSPICIOUS ⚠️", ensuring dangerous edits are never marked as "REAL".
 - 🖼️ **Screenshot / UI Filter:** AI models often falsely flag UI screenshots as "fake" due to flat digital pixels. We use `PIL ImageStat` to analyze pixel variance and unique color counts. If an image has massive uniform areas (like a screenshot or infographic), the engine dampens the fake score to prevent false alarms.
 
-#### Ensemble Logic
+#### Algorithmic Heuristic Logic
 ```python
-# Standard blend
-final_score = 0.70 × sdxl_score + 0.30 × general_score
-
-# Edge case: sdxl very confident REAL but general strongly says FAKE
-# (catches composite photo edits — e.g. real face + digital overlay)
-if sdxl_score < 0.10 and general_score > 0.55:
-    final_score = max(sdxl_score, general_score)
-
-# Verdict thresholds
-if final_score >= 0.58:  → FAKE
-elif final_score >= 0.28: → SUSPICIOUS
-else:                    → REAL
+def run_inference(image):
+    # 1. 3-Brain Weighted Average
+    final_score = (score_v2 * 0.35) + (score_sdxl * 0.35) + (score_general * 0.30)
+    
+    # 2. High-Confidence Boost
+    if max(score_v2, score_sdxl, score_general) >= 0.85:
+        final_score += calculate_boost()
+        
+    # 3. Composite Edit Protection Floor
+    if score_general >= 0.70 and final_score < 0.35:
+        final_score = 0.35
+        
+    # 4. Digital Screenshot Filter Dampener
+    if detect_uniform_pixels(image):
+        final_score *= 0.40
+        
+    return _verdict(final_score)
 ```
 
 #### Video Analysis
