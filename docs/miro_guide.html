@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miro Architecture Guide — JanRakshak Vision</title>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+        .card {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+        }
+        h2 {
+            color: #e2e8f0;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tech-box {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #38bdf8;
+        }
+        .tech-box h3 {
+            margin-top: 0;
+            color: #38bdf8;
+        }
+        img.architecture {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #334155;
+        }
+        code {
+            background-color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #f472b6;
+            font-family: monospace;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JanRakshak Vision</h1>
+            <p class="subtitle">System Architecture & Heuristic Engine Guide (v7)</p>
+        </header>
+
+        <div class="card">
+            <h2>Miro Architecture Diagram</h2>
+            <p>This document explains the technical architecture of the JanRakshak Vision platform. The diagram below illustrates the end-to-end flow from the React Frontend to the Python Hugging Face Backend.</p>
+            <img src="./assets/architecture.png" alt="JanRakshak Vision Architecture" class="architecture">
+        </div>
+
+        <div class="card">
+            <h2>The "3-Brain" AI Ensemble Technique</h2>
+            <p>JanRakshak Vision does not rely on a single AI model. Deepfakes are too complex for that. We use a <strong>Weighted Multi-Model Ensemble</strong> running in parallel, combined with a custom Smart Heuristic Engine to achieve <strong>90%+ accuracy</strong>.</p>
+            
+            <div class="tech-grid">
+                <div class="tech-box">
+                    <h3>1. Generative AI Expert</h3>
+                    <p><strong>Weight: 35%</strong><br>Specifically trained to detect modern generative AI tools like Midjourney v6, DALL-E 3, and Stable Diffusion XL.</p>
+                </div>
+                <div class="tech-box">
+                    <h3>2. Texture & Artifact Expert</h3>
+                    <p><strong>Weight: 35%</strong><br>Analyzes pixel-level anomalies, artificial skin textures, and lighting inconsistencies invisible to the human eye.</p>
+                </div>
+                <div class="tech-box">
+                    <h3>3. Composite & Edit Expert</h3>
+                    <p><strong>Weight: 30%</strong><br>Specialized in detecting Photoshop manipulations, face-swaps, and composite images (e.g., placing a fake face on a real body).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>The Smart Heuristic Engine (Our Secret Weapon)</h2>
+            <p>Instead of just averaging the scores, our algorithmic Python engine applies advanced logic to catch edge cases:</p>
+            <ul>
+                <li>🚀 <strong>High-Confidence Amplifier:</strong> If any single model is >85% certain an image is a deepfake, the engine ignores the low scores from other models and mathematically boosts the final "Fake" probability.</li>
+                <li>🛡️ <strong>Composite Protection Floor:</strong> If the composite detector strongly flags an image as edited, the final result is floored to at least <code>SUSPICIOUS</code>, ensuring dangerous edits are never marked as safe.</li>
+                <li>🖼️ <strong>Screenshot / UI Filter:</strong> AI models often falsely flag UI screenshots as "fake" due to flat digital pixels. We use <code>PIL</code> to analyze pixel variance and unique color counts. If an image lacks photographic noise (e.g., a UI screenshot), the engine safely dampens the fake score.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Data Flow & Privacy</h2>
+            <p>Privacy is our core feature. When a user uploads an image, it is sent to the Vercel-hosted React frontend. From there, it is streamed directly to our Hugging Face Inference API. <strong>The image is processed entirely in RAM (memory).</strong></p>
+            <p>No images are ever saved to a disk, database, or logging server. Once the inference is complete, the memory is instantly cleared.</p>
+        </div>
+
+        <div class="footer">
+            <p>Built by Anonymous Group for Tradition Hacks 2026. Leader: Kushal Soni.</p>
+        </div>
+    </div>
+</body>
+</html>

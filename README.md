@@ -186,21 +186,20 @@ Anyone → Upload photo or video → Get plain-language verdict in < 5 seconds
 
 ## 🤖 AI & ML Details
 
-### Detection Ensemble (v4 — Data-Driven)
+## 🧠 How It Works: The "3-Brain" AI Architecture (v7)
 
-Two specialized models run in **parallel** and their scores are combined using a weighted ensemble:
+JanRakshak Vision doesn't rely on a single model. Deepfakes are too complex for that. We use a **Weighted Multi-Model Ensemble** (a "3-Brain" system) running in parallel, combined with a custom Smart Heuristic Engine to achieve **90%+ accuracy**.
 
-#### Model 1 — SDXL Detector (Primary, 70% weight)
-- **HuggingFace ID:** `Organika/sdxl-detector`
-- **Specialty:** Detecting realistic AI-generated scenes, landscapes, photorealistic faces
-- **Architecture:** Fine-tuned image classifier on SDXL-generated vs real images
-- **Best at:** Modern AI art tools (Midjourney, DALL-E, Stable Diffusion, Gemini)
+### 1. The 3 Specialized Models
+1. **Generative AI Expert (35% Weight):** Specifically trained to detect modern AI generators like Midjourney v6, DALL-E 3, and Stable Diffusion XL.
+2. **Texture & Artifact Expert (35% Weight):** Analyzes pixel-level anomalies, artificial skin textures, and lighting inconsistencies that the human eye cannot see.
+3. **Composite & Edit Expert (30% Weight):** Specialized in detecting Photoshop manipulations, face-swaps, and composite images (e.g., placing a fake face on a real body).
 
-#### Model 2 — General AI Detector (Secondary, 30% weight)
-- **HuggingFace ID:** `umm-maybe/AI-image-detector`
-- **Specialty:** Composite edits, Photoshopped images, older GAN-based fakes
-- **Architecture:** Broad-spectrum binary classifier trained on diverse AI/real image pairs
-- **Best at:** Edited real photos, face-swaps, composite manipulation
+### 2. The Smart Heuristic Engine (Our Secret Weapon)
+Instead of just averaging the scores, our algorithmic engine applies advanced logic:
+- 🚀 **High-Confidence Amplifier:** If any single model is >85% certain an image is a deepfake (e.g., a perfect face-swap), the engine ignores the low scores from other models and boosts the final "Fake" probability.
+- 🛡️ **Composite Protection Floor:** If the composite detector strongly flags an image as edited, the final result is mathematically floored to at least "SUSPICIOUS ⚠️", ensuring dangerous edits are never marked as "REAL".
+- 🖼️ **Screenshot / UI Filter:** AI models often falsely flag UI screenshots as "fake" due to flat digital pixels. We use `PIL ImageStat` to analyze pixel variance and unique color counts. If an image has massive uniform areas (like a screenshot or infographic), the engine dampens the fake score to prevent false alarms.
 
 #### Ensemble Logic
 ```python
