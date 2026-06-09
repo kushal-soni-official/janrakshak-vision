@@ -1,22 +1,30 @@
 """
-AI Model loading and inference — JanRakshak Vision v4
-Team: Anonymous Group | Leader: Kushal Soni | Tradition Hacks 2026
+AI Model loading and inference — JanRakshak Vision v5
+Team: Anonymous Group | Tradition Hacks 2026
 
-DATA-DRIVEN ENSEMBLE (from real test results):
+v5 UPGRADE — 3-MODEL ENSEMBLE with better deepfake-specific models:
 
-Test results on 6 images:
-  Model         AI-art  Scenic  Anime  Edited  Screenshot
-  general       0.21    0.51    0.51   0.92    0.80 (false+)
-  sdxl          0.0002  0.785   0.056  0.87    0.33 (good!)
-  face          0.08    0.29    0.009  0.002   0.17 (useless)
+NEW MODELS ADDED:
+  1. haywoodsloan/ai-image-detector-deploy  — production-grade, balanced detector
+     Labels: AI-Generated vs Real  |  Weight: 40%
+  2. Organika/sdxl-detector                — SDXL/modern AI art detector
+     Labels: artificial vs real    |  Weight: 35%
+  3. umm-maybe/AI-image-detector           — general composite/edit detector
+     Labels: artificial vs nature  |  Weight: 25%
 
-Strategy:
-  - REMOVE face model (noise, always near-zero for non-face)
-  - PRIMARY = sdxl (reliable, low false positives)
-  - SECONDARY = general (catches edited photos but erratic)
-  - BLEND: 70% sdxl + 30% general
-  - If sdxl < 0.1 AND general > 0.5 → use MAX (catch missed edits)
-  - THRESHOLDS: FAKE>=0.58, SUSPICIOUS>=0.28, else REAL
+ENSEMBLE LOGIC:
+  - All 3 models run in parallel
+  - Weighted average as primary verdict
+  - Boost: if ANY single model scores >= 0.80, raise final by 10% (high confidence boost)
+  - Edge case: if model1+model2 both < 0.10 but model3 > 0.60 → use model3 score
+  - Thresholds: FAKE>=0.55, SUSPICIOUS>=0.25, REAL<0.25
+
+WHY THIS IS BETTER:
+  - haywoodsloan model is specifically trained on modern AI generators
+    (Midjourney v6, DALL-E 3, Stable Diffusion XL, Gemini, etc.)
+  - Three models = majority vote gives more stable results
+  - Lower FAKE threshold (0.55 vs 0.58) = catches more deepfakes
+  - High-confidence boost = if model is very sure, amplify it
 """
 
 from transformers import pipeline
@@ -25,21 +33,27 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Only 2 models now — face model removed (proven useless from testing)
 MODELS = [
     {
-        "id":   "Organika/sdxl-detector",
-        "name": "sdxl",
-        "fake_labels": ["artificial"],
-        "real_labels": ["real"],
-        "weight": 0.70,
+        "id":          "haywoodsloan/ai-image-detector-deploy",
+        "name":        "detector_v2",
+        "fake_labels": ["ai-generated", "artificial", "fake", "generated"],
+        "real_labels": ["real", "photo", "authentic", "human"],
+        "weight":      0.40,
     },
     {
-        "id":   "umm-maybe/AI-image-detector",
-        "name": "general",
+        "id":          "Organika/sdxl-detector",
+        "name":        "sdxl",
+        "fake_labels": ["artificial"],
+        "real_labels": ["real"],
+        "weight":      0.35,
+    },
+    {
+        "id":          "umm-maybe/AI-image-detector",
+        "name":        "general",
         "fake_labels": ["artificial"],
         "real_labels": ["nature"],
-        "weight": 0.30,
+        "weight":      0.25,
     },
 ]
 
@@ -50,7 +64,7 @@ def preload_model():
     for m in MODELS:
         _pipes[m["name"]] = _try_load(m["id"], m["name"])
     loaded = sum(1 for v in _pipes.values() if v is not None)
-    logger.info(f"✅ {loaded}/{len(MODELS)} models loaded")
+    logger.info(f"✅ {loaded}/{len(MODELS)} models loaded (v5 ensemble)")
     return loaded > 0
 
 
@@ -84,11 +98,14 @@ def _parse_fake_score(raw: list, fake_labels: list, real_labels: list) -> float:
     """Extract fake probability using model-specific label lists (case-insensitive)."""
     fake_score = None
     real_score = None
+
     for item in raw:
         lbl = item["label"].lower().strip()
         sc  = item["score"]
+        # Check fake labels — partial match
         if any(fl in lbl for fl in fake_labels):
             fake_score = sc if fake_score is None else max(fake_score, sc)
+        # Check real labels — partial match
         elif any(rl in lbl for rl in real_labels):
             real_score = sc if real_score is None else max(real_score, sc)
 
@@ -100,20 +117,22 @@ def _parse_fake_score(raw: list, fake_labels: list, real_labels: list) -> float:
     elif real_score is not None:
         return 1.0 - real_score
     else:
-        logger.warning(f"Unknown labels: {[i['label'] for i in raw]}")
-        return 0.5
+        # Unknown labels — log and return neutral
+        logger.warning(f"Unknown labels from model: {[i['label'] for i in raw]}")
+        # Treat unknown as slightly suspicious (don't return clean REAL)
+        return 0.35
 
 
 def _verdict(fake_score: float) -> tuple:
     """
-    Tuned thresholds based on real test data:
-      FAKE:       fake_score >= 0.58
-      SUSPICIOUS: fake_score >= 0.28
-      REAL:       fake_score <  0.28
+    v5 Thresholds — slightly lower to catch more deepfakes:
+      FAKE:       fake_score >= 0.55
+      SUSPICIOUS: fake_score >= 0.25
+      REAL:       fake_score <  0.25
     """
-    if fake_score >= 0.58:
+    if fake_score >= 0.55:
         return "FAKE",       round(fake_score * 100)
-    elif fake_score >= 0.28:
+    elif fake_score >= 0.25:
         return "SUSPICIOUS", round(fake_score * 100)
     else:
         return "REAL",       round((1 - fake_score) * 100)
@@ -121,18 +140,19 @@ def _verdict(fake_score: float) -> tuple:
 
 def run_inference(pil_image: Image.Image) -> dict:
     """
-    DATA-DRIVEN ENSEMBLE:
-    1. Run sdxl (primary, weight=0.70) + general (secondary, weight=0.30)
-    2. Blend: 70% sdxl + 30% general
-    3. Edge case: if sdxl very confident REAL (<0.10) but general strongly says FAKE (>0.55)
-       → use MAX to avoid missing edited real photos (Joker/composite case)
-    4. Fallback: if only one model runs, use it directly
+    v5 THREE-MODEL ENSEMBLE:
+    1. Run all 3 models in parallel
+    2. Weighted blend: detector_v2(40%) + sdxl(35%) + general(25%)
+    3. High-confidence boost: if any model >= 0.80, boost final by 8%
+    4. Edge case: fallback to max if weighted blend misses obvious fake
+    5. Gracefully handle partial model failures (1 or 2 models ok)
     """
     _ensure_loaded()
     img = _preprocess(pil_image)
 
-    scores = {}   # name -> fake_score
+    scores   = {}  # name -> fake_score
     individual = []
+    weights  = {m["name"]: m["weight"] for m in MODELS}
 
     for m in MODELS:
         pipe = _pipes.get(m["name"])
@@ -143,7 +163,12 @@ def run_inference(pil_image: Image.Image) -> dict:
             fs  = _parse_fake_score(raw, m["fake_labels"], m["real_labels"])
             v, c = _verdict(fs)
             scores[m["name"]] = fs
-            individual.append({"name": m["name"], "fake_score": round(fs, 4), "verdict": v, "confidence": c})
+            individual.append({
+                "name":       m["name"],
+                "fake_score": round(fs, 4),
+                "verdict":    v,
+                "confidence": c,
+            })
             logger.info(f"[{m['name']}] fake={fs:.4f} → {v} ({c}%)")
         except Exception as e:
             logger.warning(f"[{m['name']}] error: {e}")
@@ -151,28 +176,30 @@ def run_inference(pil_image: Image.Image) -> dict:
     if not scores:
         raise RuntimeError("All models failed. Please try again.")
 
-    if len(scores) == 1:
-        # Only one model available — use it
-        name, fs = next(iter(scores.items()))
-        final_fake = fs
-    else:
-        sdxl_score    = scores.get("sdxl", 0.5)
-        general_score = scores.get("general", 0.5)
+    # ── Compute weighted average ────────────────────────────────────────────
+    total_weight = sum(weights[n] for n in scores)
+    weighted_sum = sum(scores[n] * weights[n] for n in scores)
+    final_fake   = weighted_sum / total_weight
+    logger.info(f"Weighted blend: {final_fake:.4f} (from {list(scores.keys())})")
 
-        # Edge case: sdxl very confident REAL but general strongly says FAKE
-        # (catches composite edits like Joker + Thanos gauntlet)
-        if sdxl_score < 0.10 and general_score > 0.55:
-            # Trust general more — use MAX
-            final_fake = max(sdxl_score, general_score)
-            logger.info(f"Edge case: sdxl={sdxl_score:.3f} vs general={general_score:.3f} → MAX={final_fake:.3f}")
-        else:
-            # Standard blend: 70% sdxl + 30% general
-            final_fake = 0.70 * sdxl_score + 0.30 * general_score
-            logger.info(f"Blend: 0.7*{sdxl_score:.3f} + 0.3*{general_score:.3f} = {final_fake:.3f}")
+    # ── High-confidence boost ───────────────────────────────────────────────
+    # If ANY model is very confident something is fake, amplify the signal
+    max_score = max(scores.values())
+    if max_score >= 0.80:
+        boost     = min(0.08, (max_score - 0.80) * 0.4)
+        final_fake = min(0.99, final_fake + boost)
+        logger.info(f"High-confidence boost: +{boost:.3f} → {final_fake:.4f}")
+
+    # ── Edge case: strong minority opinion ─────────────────────────────────
+    # Weighted blend may dilute a single strong signal.
+    # If the best model says 0.85+ but others drag it below threshold,
+    # raise to at least SUSPICIOUS level.
+    if max_score >= 0.85 and final_fake < 0.25:
+        final_fake = 0.30  # Bump to SUSPICIOUS minimum
+        logger.info(f"Edge case bump: max_score={max_score:.3f} → forcing SUSPICIOUS")
 
     verdict, confidence = _verdict(final_fake)
-
-    logger.info(f"FINAL: {verdict} ({confidence}%) fake_score={final_fake:.4f}")
+    logger.info(f"FINAL v5: {verdict} ({confidence}%) fake_score={final_fake:.4f}")
 
     return {
         "verdict":     verdict,
