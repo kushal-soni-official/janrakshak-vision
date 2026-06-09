@@ -1,1 +1,1 @@
-docs: update Miro architecture image and real crime incidents in README
+docs: fine-tune README to be slightly more concise and professional
