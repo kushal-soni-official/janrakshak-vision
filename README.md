@@ -3,7 +3,7 @@
 > **AI Deepfake Detection Backend** | JanRakshak Vision | Tradition Hacks 2026  
 > Team: **Anonymous Group** | Leader: **Kushal Soni**
 
-[![HuggingFace Space](https://img.shields.io/badge/HuggingFace-Space-yellow?logo=huggingface)](https://tglprince-janrakshak-api.hf.space)
+[![HuggingFace Space](https://img.shields.io/badge/HuggingFace-Space-yellow?logo=huggingface)](https://ofc01-janrakshak-api.hf.space)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)](https://python.org)
 
@@ -13,8 +13,8 @@
 
 | Service | URL |
 |---|---|
-| **API Base** | https://tglprince-janrakshak-api.hf.space |
-| **Swagger UI** | https://tglprince-janrakshak-api.hf.space/docs |
+| **API Base** | https://ofc01-janrakshak-api.hf.space |
+| **Swagger UI** | https://ofc01-janrakshak-api.hf.space/docs |
 | **Frontend** | https://janrakshak-frontend.vercel.app |
 
 ---
@@ -147,10 +147,11 @@ janrakshak-backend/
 
 **Anonymous Group** | Tradition Hacks 2026
 
-| Role | Name |
-|---|---|
-| Team Leader | Kushal Soni |
-| Members | _To be updated_ |
+| Role | Name | Contribution |
+|---|---|---|
+| Team Leader | Kushal Soni | Front end, Back end, AI/ML Integration |
+| Member | Vinod Kumar Prajapat | Miro architecture design, Testing and debugging, Presentation |
+| Member | Vishal Vishwakarma | None |
 
 ---
 
