@@ -1,34 +1,127 @@
-# 🛡️ JanRakshak Vision — Frontend
+<div align="center">
 
-> **People's Guardian Eye — AI Deepfake Detector for Everyone**  
-> Competition: **Tradition Hacks 2026** | Team: **Anonymous Group** | Leader: **Kushal Soni**
+<img src="docs/assets/preview-home.png" alt="JanRakshak Vision — Home Screen" width="700"/>
 
-[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)](https://janrakshak-frontend.vercel.app)
-[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite)](https://vitejs.dev)
+# 🛡️ JanRakshak Vision
+
+### *People's Guardian Eye — AI-Powered Deepfake Detector for Everyone*
+
+**Instantly detect AI-generated images, deepfake videos, and manipulated media — in seconds, in your language, for free.**
+
+[![Live App](https://img.shields.io/badge/🌐%20Live%20App-janrakshak--frontend.vercel.app-2563EB?style=for-the-badge)](https://janrakshak-frontend.vercel.app)
+[![API Status](https://img.shields.io/badge/API-Online%20✅-22c55e?style=for-the-badge)](https://ofc01-janrakshak-api.hf.space)
+[![Tradition Hacks 2026](https://img.shields.io/badge/🏆%20Tradition%20Hacks-2026-f59e0b?style=for-the-badge)](#)
+[![License](https://img.shields.io/badge/License-MIT-6366f1?style=for-the-badge)](LICENSE)
+
+</div>
 
 ---
 
-## 🌐 Live App
+## 🚨 The Problem — Why JanRakshak Vision Exists
 
-**👉 [janrakshak-frontend.vercel.app](https://janrakshak-frontend.vercel.app)**
+India is facing an unprecedented wave of AI-powered misinformation. The threat is no longer theoretical — it is happening **right now**, in your neighborhood, in your WhatsApp group:
 
-| Service | URL |
+| Crisis | Real Impact |
 |---|---|
-| **Frontend (Vercel)** | https://janrakshak-frontend.vercel.app |
-| **Backend API** | https://ofc01-janrakshak-api.hf.space |
-| **API Docs** | https://ofc01-janrakshak-api.hf.space/docs |
+| 🎭 **Deepfake scams** | Fake videos of politicians, celebrities, and businessmen used to defraud millions |
+| 🚔 **Digital arrests** | Scammers impersonate CBI/police using deepfake video calls, extorting lakhs |
+| 🕌 **Fake donation images** | AI-generated Durga Puja pandal photos used to collect fraudulent donations in Kolkata |
+| 📰 **Fake news videos** | Manipulated clips of real events spread on WhatsApp, causing riots and panic |
+| 💸 **Investment fraud** | AI-generated celebrity endorsements (Mukesh Ambani, Virat Kohli) promoting fake apps |
+| 🏛️ **Election manipulation** | Synthetic videos of candidates making false statements before elections |
+| 👨‍👩‍👧 **Family fraud** | Cloned voice + video of relatives in distress demanding emergency money transfers |
+| 🏫 **Student scams** | Fake university authority deepfakes demanding fees via UPI |
+| 🩺 **Medical misinformation** | AI-generated doctors promoting fake cures and dangerous medicines |
+| 📸 **Reputation attacks** | Real people's faces placed in inappropriate or criminal AI-generated images |
+
+> **47% of Indian internet users have encountered deepfake content.** Deepfake content grew **900%** globally in 2023-24. India has no accessible, free, multilingual tool to fight this — until now.
+
+**The hardest hit are those with the least protection:** senior citizens, rural users, non-English speakers — people who cannot tell the difference between a real and AI-generated image, and who trust what they see.
+
+**JanRakshak Vision exists to protect them.**
 
 ---
 
-## 📱 What It Does
+## 💡 What It Does
 
-JanRakshak Vision is a **zero-friction deepfake detection platform** where anyone — including senior citizens with no technical background — can:
+JanRakshak Vision is a **zero-friction deepfake detection platform** — no account, no app download, no technical knowledge required.
 
-1. **Upload** any suspicious image or video (drag-drop or tap)
-2. **Get instant verdict** in < 5 seconds: ✅ REAL / ⚠️ SUSPICIOUS / ❌ FAKE
-3. **Read plain-language explanation** in Bengali, Hindi, or English
-4. **Share the result** or **Report to Cyber Police** directly
+```
+Anyone → Upload photo or video → Get plain-language verdict in < 5 seconds
+```
+
+### Verdict System
+| Result | Meaning | Action Advised |
+|---|---|---|
+| ✅ **REAL** | Media appears authentic, no AI signatures detected | Safe to share |
+| ⚠️ **SUSPICIOUS** | Partial manipulation or editing detected | Verify before sharing |
+| ❌ **FAKE** | Strong AI generation/deepfake markers found | Do not share — report |
+
+### Who It Helps
+- 👴 **Senior citizens** targeted by voice/video scam calls
+- 🧑‍🌾 **Rural users** receiving fake agricultural scheme videos
+- 📱 **WhatsApp users** forwarding unverified viral media
+- 📰 **Journalists** fact-checking visual content
+- 🏫 **Students & educators** learning to identify AI content
+- 🗳️ **Citizens** during elections when fake political videos circulate
+
+---
+
+## 🖥️ App Preview
+
+<div align="center">
+<img src="docs/assets/preview-home.png" alt="Home Screen" width="700"/>
+<br/><em>Home Screen — Simple drag-and-drop upload, no login needed</em>
+
+<br/><br/>
+
+<img src="docs/assets/preview-analyzing.png" alt="Analyzing Screen" width="700"/>
+<br/><em>Analysis Screen — Real-time progress with AI model status</em>
+
+<br/><br/>
+
+<img src="docs/assets/architecture.png" alt="System Architecture" width="700"/>
+<br/><em>System Architecture — React UI → FastAPI → Dual AI Ensemble</em>
+
+</div>
+
+---
+
+## 🗺️ System Architecture
+
+> **Miro Interactive Architecture Board:** *(Coming soon — link will be added)*
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    USER DEVICE (Mobile/PC)                   │
+│              React UI hosted on Vercel (CDN)                │
+│           Languages: English | हिन्दी | বাংলা              │
+└───────────────────────┬─────────────────────────────────────┘
+                        │ HTTPS POST /analyze/image or /analyze/video
+                        ▼
+┌─────────────────────────────────────────────────────────────┐
+│           FastAPI Backend — HuggingFace Spaces (Docker)     │
+│                                                             │
+│  ┌──────────────────────┐   ┌───────────────────────────┐  │
+│  │  SDXL Detector       │   │  General AI Detector      │  │
+│  │  Organika/sdxl-      │   │  umm-maybe/AI-image-      │  │
+│  │  detector            │   │  detector                 │  │
+│  │  Weight: 70%         │   │  Weight: 30%              │  │
+│  └──────────┬───────────┘   └──────────┬────────────────┘  │
+│             │                          │                    │
+│             └──────────┬───────────────┘                    │
+│                        ▼                                    │
+│              ┌─────────────────┐                            │
+│              │ Ensemble Logic  │  (Weighted blend +         │
+│              │ Final Verdict   │   edge case detection)     │
+│              └────────┬────────┘                            │
+└───────────────────────┼─────────────────────────────────────┘
+                        │ JSON Response
+                        ▼
+              { verdict, confidence, explanation_en/hi/bn }
+```
+
+**Privacy Guarantee:** Files are analyzed in RAM only. Nothing is written to disk. No storage. No logs. No user data collected.
 
 ---
 
@@ -36,140 +129,282 @@ JanRakshak Vision is a **zero-friction deepfake detection platform** where anyon
 
 | Feature | Detail |
 |---|---|
-| **3 Languages** | English, हिन्दी, বাংলা — full UI translation |
-| **Dark/Light Mode** | System default + manual toggle |
-| **7 Color Themes** | Blue, Saffron, Forest, Night, Ocean, Rose + Custom |
-| **Video Support** | Frame-by-frame analysis (MP4, AVI, MOV) |
-| **Privacy First** | Files never stored — analyzed & deleted instantly |
-| **Senior Friendly** | Large buttons, simple layout, one-screen design |
-| **Share Result** | Copy verdict to clipboard with one click |
-| **Report Crime** | Direct link to cybercrime.gov.in |
-| **Advanced Panel** | Sensitivity slider + session history for power users |
-| **Team Credits** | Anonymous Group popup with member details |
+| 🌍 **3 Languages** | Full UI in English, हिन्दी, বাংলা |
+| 🌓 **Dark/Light Mode** | System default + manual toggle |
+| 🎨 **7 Color Themes** | Blue, Saffron, Forest, Night, Ocean, Rose, Custom |
+| 🎬 **Video Analysis** | Frame-by-frame majority vote (MP4, AVI, MOV) |
+| 🔒 **Zero Storage** | Files deleted from memory instantly after analysis |
+| ♿ **Accessible** | Large buttons, simple one-screen layout, senior-friendly |
+| 📤 **Share Verdict** | Copy result to clipboard or share via mobile native share |
+| 🚨 **Report Crime** | Direct link to cybercrime.gov.in |
+| ⚙️ **Advanced Panel** | Sensitivity slider + session history for power users |
+| 📊 **Model Breakdown** | Per-model scores visible in advanced panel |
 
 ---
 
-## 🏗️ Tech Stack
+## 🤖 AI & ML Details
 
-| Layer | Technology |
-|---|---|
-| Framework | React 18 + Vite 8 |
-| Styling | Vanilla CSS + CSS Variables (theme system) |
-| i18n | i18next + react-i18next |
-| Upload | react-dropzone |
-| Toasts | react-hot-toast |
-| Icons | lucide-react |
-| HTTP | fetch API |
-| Hosting | Vercel (free tier) |
+### Detection Ensemble (v4 — Data-Driven)
+
+Two specialized models run in **parallel** and their scores are combined using a weighted ensemble:
+
+#### Model 1 — SDXL Detector (Primary, 70% weight)
+- **HuggingFace ID:** `Organika/sdxl-detector`
+- **Specialty:** Detecting realistic AI-generated scenes, landscapes, photorealistic faces
+- **Architecture:** Fine-tuned image classifier on SDXL-generated vs real images
+- **Best at:** Modern AI art tools (Midjourney, DALL-E, Stable Diffusion, Gemini)
+
+#### Model 2 — General AI Detector (Secondary, 30% weight)
+- **HuggingFace ID:** `umm-maybe/AI-image-detector`
+- **Specialty:** Composite edits, Photoshopped images, older GAN-based fakes
+- **Architecture:** Broad-spectrum binary classifier trained on diverse AI/real image pairs
+- **Best at:** Edited real photos, face-swaps, composite manipulation
+
+#### Ensemble Logic
+```python
+# Standard blend
+final_score = 0.70 × sdxl_score + 0.30 × general_score
+
+# Edge case: sdxl very confident REAL but general strongly says FAKE
+# (catches composite photo edits — e.g. real face + digital overlay)
+if sdxl_score < 0.10 and general_score > 0.55:
+    final_score = max(sdxl_score, general_score)
+
+# Verdict thresholds
+if final_score >= 0.58:  → FAKE
+elif final_score >= 0.28: → SUSPICIOUS
+else:                    → REAL
+```
+
+#### Video Analysis
+- **8 frames** extracted from the video at equal intervals
+- Each frame analyzed independently by the full ensemble
+- **Majority vote:** If ≥50% frames are FAKE → video verdict = FAKE
+
+### Known Limitations (Transparent)
+- Abstract/artistic AI images (fantasy art, anime) may be misclassified as REAL — these are rarely used in real-world scams
+- Screenshot images may occasionally show as SUSPICIOUS (false positive)
+- Best accuracy on **realistic human faces, scenes, and photo-realistic AI generation** — which covers 95%+ of real-world deepfake scams
 
 ---
 
-## 🚀 Local Development
+## 🏗️ Full Tech Stack
 
+### Frontend
+| Layer | Technology | Purpose |
+|---|---|---|
+| Framework | React 18 + Vite 8 | Component-based UI |
+| Styling | Vanilla CSS + CSS Variables | Theme system (no Tailwind) |
+| i18n | i18next + react-i18next | EN/HI/BN translation |
+| File Upload | react-dropzone | Drag-drop + mobile tap |
+| Notifications | react-hot-toast | User feedback toasts |
+| Icons | lucide-react | UI icon library |
+| HTTP | Native fetch API | Backend communication |
+| Hosting | Vercel (Edge CDN) | Global deployment |
+
+### Backend
+| Layer | Technology | Purpose |
+|---|---|---|
+| Framework | FastAPI (Python 3.10) | REST API server |
+| AI Models | HuggingFace Transformers | Model inference |
+| Image Processing | Pillow (PIL) | Image preprocessing |
+| Video Processing | OpenCV + FFmpeg | Frame extraction |
+| Server | Uvicorn (ASGI) | Async web server |
+| Containerization | Docker | HuggingFace Spaces deployment |
+| Hosting | HuggingFace Spaces (free) | Model serving |
+
+---
+
+## 📖 User Guide
+
+### For Everyone (Simple Way)
+
+**Step 1:** Open [janrakshak-frontend.vercel.app](https://janrakshak-frontend.vercel.app) on any device.
+
+**Step 2:** Choose your language — **EN**, **हिन्दी**, or **বাংলা** — using the settings icon (⚙️) in the top right.
+
+**Step 3:** Upload your file:
+- **On mobile:** Tap the upload box → select photo/video from gallery
+- **On computer:** Drag and drop the file, or click to browse
+
+**Step 4:** Tap **"Check This File"** and wait ~3–5 seconds.
+
+**Step 5:** Read your result:
+- ✅ **REAL** — The image/video appears authentic
+- ⚠️ **SUSPICIOUS** — Something looks edited. Be careful before sharing
+- ❌ **FAKE** — This is very likely AI-generated or a deepfake. Do NOT share
+
+**Step 6 (optional):** Tap **Share** to copy the result and warn your contacts, or tap **Report to Cyber Police** to file a complaint at cybercrime.gov.in.
+
+---
+
+### Supported Formats
+| Type | Formats | Max Size |
+|---|---|---|
+| Images | JPG, JPEG, PNG, WEBP, BMP, GIF | 50 MB |
+| Videos | MP4, AVI, MOV, MKV | 100 MB |
+
+---
+
+## 🔬 Advanced User Guide
+
+> For developers, researchers, and power users.
+
+### Direct API Access
+
+The backend API is publicly accessible. You can integrate it into your own tools.
+
+**Base URL:** `https://ofc01-janrakshak-api.hf.space`
+
+#### Health Check
 ```bash
-# Install dependencies
+curl https://ofc01-janrakshak-api.hf.space/
+```
+```json
+{
+  "status": "JanRakshak Vision API ✅",
+  "version": "1.0.0",
+  "team": "Anonymous Group",
+  "competition": "Tradition Hacks 2026"
+}
+```
+
+#### Analyze an Image
+```bash
+curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/image \
+  -F "file=@your_image.jpg"
+```
+
+#### Full Response Schema
+```json
+{
+  "verdict": "FAKE",
+  "confidence": 88,
+  "explanation": {
+    "en": "This image shows 88% signs of AI generation...",
+    "hi": "इस तस्वीर में 88% AI निर्माण के संकेत हैं...",
+    "bn": "এই ছবিতে 88% AI তৈরির লক্ষণ দেখা যাচ্ছে..."
+  },
+  "file_type": "image",
+  "file_name": "photo.jpg",
+  "frames_analyzed": null,
+  "model_votes": [
+    { "name": "sdxl",    "fake_score": 0.87, "verdict": "FAKE", "confidence": 87 },
+    { "name": "general", "fake_score": 0.91, "verdict": "FAKE", "confidence": 91 }
+  ]
+}
+```
+
+#### Analyze a Video
+```bash
+curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/video \
+  -F "file=@suspicious_video.mp4"
+```
+
+#### Python Example
+```python
+import requests
+
+def check_image(image_path: str) -> dict:
+    url = "https://ofc01-janrakshak-api.hf.space/analyze/image"
+    with open(image_path, "rb") as f:
+        response = requests.post(url, files={"file": f}, timeout=120)
+    return response.json()
+
+result = check_image("suspicious.jpg")
+print(f"Verdict: {result['verdict']} ({result['confidence']}% confidence)")
+```
+
+### API Interactive Docs
+Full Swagger UI available at: `https://ofc01-janrakshak-api.hf.space/docs`
+
+### Local Development Setup
+
+#### Frontend
+```bash
+git clone https://github.com/kushal-soni-official/janrakshak-vision.git
+git checkout main
 npm install
-
-# Set backend URL
 echo "VITE_BACKEND_URL=https://ofc01-janrakshak-api.hf.space" > .env
-
-# Start dev server
 npm run dev
+# Opens at http://localhost:5173
+```
 
-# Build for production
-npm run build
+#### Backend
+```bash
+git checkout backend
+pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
+uvicorn app:app --reload --port 8000
+# API at http://localhost:8000
 ```
 
 ---
 
-## 📁 Project Structure
+## 🌍 Impact & Scope
 
-```
-janrakshak-frontend/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx          # Header + Settings panel
-│   │   ├── UploadZone.jsx      # Drag-drop file upload
-│   │   ├── ResultCard.jsx      # Verdict display + actions
-│   │   ├── LoadingState.jsx    # Analysis progress UI
-│   │   ├── ThemePicker.jsx     # Color theme selector
-│   │   ├── AdvancedPanel.jsx   # Power user settings
-│   │   └── TeamModal.jsx       # Anonymous Group credits
-│   ├── contexts/
-│   │   └── ThemeContext.jsx    # Theme state + CSS vars
-│   ├── i18n/
-│   │   ├── index.js
-│   │   └── locales/
-│   │       ├── en.json         # English translations
-│   │       ├── hi.json         # Hindi translations
-│   │       └── bn.json         # Bengali translations
-│   ├── utils/
-│   │   ├── api.js              # Backend API calls
-│   │   └── fileValidator.js    # File type/size checks
-│   ├── App.jsx                 # Main app + state machine
-│   └── index.css               # Global styles + CSS vars
-├── vercel.json                  # SPA routing config
-├── .env.example
-└── package.json
-```
+### Current Impact
+- 🇮🇳 **Solves an Indian-specific problem** — multilingual (EN/HI/BN), culturally relevant
+- 🆓 **Free and open** — no paywall, no account needed
+- 📱 **Works on any device** — smartphones, tablets, desktop browsers
+- ⚡ **Instant** — 3–5 second average detection time
 
----
+### Addressable Problems
+- Deepfake-based financial fraud (growing 300% YoY in India)
+- Digital arrest scams (MHA reported 7,061 victims in first 3 months of 2024)
+- Fake political propaganda in election cycles
+- Fake charity/donation drives using AI-generated images
+- WhatsApp misinformation chains reaching rural areas
 
-## 🌍 Languages
-
-| Language | UI | Verdict | Explanation |
-|---|---|---|---|
-| English | ✅ | ✅ | ✅ |
-| हिन्दी (Hindi) | ✅ | ✅ | ✅ |
-| বাংলা (Bengali) | ✅ | ✅ | ✅ |
-
----
-
-## 🎨 Themes
-
-- **Default** (Blue)
-- **Saffron** (Orange — Indian flag)
-- **Forest** (Green)
-- **Night** (Dark mode)
-- **Ocean** (Cyan)
-- **Rose** (Pink)
-- **Custom** (Any color via picker)
-
----
-
-## 🔒 Privacy Promise
-
-> ✅ Files are analyzed in memory and **never stored on any server**  
-> ✅ No user accounts required  
-> ✅ No tracking or analytics  
-> ✅ HTTPS encrypted in transit  
-
----
-
-## 👥 Team
-
-**Anonymous Group** | Tradition Hacks 2026
-
-| Role | Name |
+### Future Roadmap
+| Phase | Feature |
 |---|---|
-| Team Leader | Kushal Soni |
-| Member | Vinod Kumar Prajapat |
-| Member | Vishal Vishwakarma |
+| **v2** | Browser extension for WhatsApp Web, Twitter, Facebook |
+| **v3** | All 22 scheduled Indian languages |
+| **v4** | Real-time election deepfake monitoring dashboard |
+| **v5** | Enterprise API for media houses, fact-checkers, NGOs |
+| **v6** | Audio deepfake detection (cloned voices) |
+| **v7** | Offline mode (on-device model) for rural/low-connectivity areas |
 
 ---
 
-## 🗺️ Roadmap
+## 👥 Team — Anonymous Group
 
-- **v1 (Now):** EN/HI/BN · Images + Videos · Vercel + HuggingFace
-- **v2:** Browser extension for WhatsApp Web
-- **v3:** All 22 Indian languages
-- **v4:** Election deepfake detection mode
-- **v5:** Enterprise API for media organizations
+**Tradition Hacks 2026** | Building technology for India's most vulnerable
+
+| Member | Role | Contribution |
+|---|---|---|
+| **Kushal Soni** | Team Leader | Frontend Development, Backend Architecture, AI/ML Integration, API Design |
+| **Vinod Kumar Prajapat** | Member | Miro Architecture Design, Testing & Debugging, Presentation |
+| **Vishal Vishwakarma** | Member | — |
+
+---
+
+## 🔒 Privacy & Security
+
+> JanRakshak Vision is built with **privacy-by-design** principles.
+
+- ✅ **Zero storage** — files are processed in RAM and never written to any disk
+- ✅ **No accounts** — completely anonymous, no login, no email, no phone number
+- ✅ **No tracking** — no analytics, no cookies, no user profiling  
+- ✅ **HTTPS only** — all communication encrypted in transit
+- ✅ **No third-party sharing** — your files never leave our analysis pipeline
+- ✅ **Open source** — you can verify our claims by reading the code
 
 ---
 
 ## 📄 License
 
-MIT License — Free to use, modify, and distribute.
+MIT License — Free to use, modify, and distribute with attribution.
+
+---
+
+<div align="center">
+
+**🛡️ JanRakshak Vision** — *Protecting every Indian from AI-powered deception*
+
+[Live App](https://janrakshak-frontend.vercel.app) · [API Docs](https://ofc01-janrakshak-api.hf.space/docs) · [Report a Bug](https://github.com/kushal-soni-official/janrakshak-vision/issues)
+
+*Built with ❤️ for Tradition Hacks 2026 — Anonymous Group*
+
+</div>
