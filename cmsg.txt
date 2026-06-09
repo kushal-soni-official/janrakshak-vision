@@ -1,1 +1,0 @@
-docs: fine-tune README to be slightly more concise and professional

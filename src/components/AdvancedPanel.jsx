@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ChevronDown, ChevronUp, Clock, SlidersHorizontal, Info } from 'lucide-react'
+import { ChevronDown, ChevronUp, Clock } from 'lucide-react'
 
 export default function AdvancedPanel({ history = [] }) {
   const { t } = useTranslation()
@@ -58,6 +58,7 @@ export default function AdvancedPanel({ history = [] }) {
             {[
               [t('advanced.about_model'),  '3-Brain Ensemble (v7)'],
               [t('advanced.about_team'),   'Anonymous Group'],
+              [t('advanced.about_leader'), 'Kushal Soni'],
               [t('advanced.about_event'),  'Tradition Hacks 2026'],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between text-xs">

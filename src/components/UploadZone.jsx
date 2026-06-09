@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useTranslation } from 'react-i18next'
 import { UploadCloud, Image, Video, Lock, Zap } from 'lucide-react'
-import { validateFile } from '../utils/fileValidator'
+import { validateFile, isVideo } from '../utils/fileValidator'
 import toast from 'react-hot-toast'
 
 export default function UploadZone({ onFileSelected }) {
@@ -33,7 +33,7 @@ export default function UploadZone({ onFileSelected }) {
       'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp'],
       'video/*': ['.mp4', '.avi', '.mov', '.mkv'],
     },
-    maxSize: 100 * 1024 * 1024,
+    maxSize: 100 * 1024 * 1024, // 100MB outer limit; fileValidator enforces per-type limits
     multiple: false,
     noClick: true,
   })

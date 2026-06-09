@@ -3,7 +3,7 @@
   "upload": {
     "drag_drop": "यहाँ फ़ाइल छोड़ें", "or_click": "या टैप करके चुनें",
     "images": "तस्वीरें: JPG, PNG, WEBP", "videos": "वीडियो: MP4, MOV, AVI",
-    "max_size": "अधिकतम 100MB",
+    "max_size": "तस्वीरें: 50MB अधिकतम · वीडियो: 100MB अधिकतम",
     "privacy": "आपकी फ़ाइल जाँच के बाद तुरंत डिलीट हो जाती है। कुछ भी सेव नहीं होता।",
     "cta": "इसे जाँचें",
     "badge": "AI-संचालित पहचान",
@@ -35,10 +35,6 @@
   "advanced": {
     "show": "एडवांस्ड सेटिंग्स", "hide": "छुपाएं",
     "history": "सत्र इतिहास", "no_history": "अभी कोई फ़ाइल नहीं जाँची गई",
-    "sensitivity": "जाँच की संवेदनशीलता",
-    "sens_low": "कम", "sens_low_desc": "कम गलत परिणाम",
-    "sens_med": "मध्यम", "sens_med_desc": "संतुलित (अनुशंसित)",
-    "sens_high": "अधिक", "sens_high_desc": "अधिक सामग्री को फ़्लैग करें",
     "about_model": "मॉडल", "about_team": "टीम", "about_leader": "नेता",
     "about_event": "इवेंट"
   },

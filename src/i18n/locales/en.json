@@ -3,7 +3,7 @@
   "upload": {
     "drag_drop": "Drop your file here", "or_click": "or tap to choose a file",
     "images": "Photos: JPG, PNG, WEBP", "videos": "Videos: MP4, MOV, AVI",
-    "max_size": "Maximum 100MB",
+    "max_size": "Images: 50MB max · Videos: 100MB max",
     "privacy": "Your file is analyzed and immediately deleted. Nothing is stored.",
     "cta": "Check This File",
     "badge": "AI-Powered Detection",
@@ -35,10 +35,6 @@
   "advanced": {
     "show": "Advanced Settings", "hide": "Hide Advanced",
     "history": "Session History", "no_history": "No files checked yet this session",
-    "sensitivity": "Detection Sensitivity",
-    "sens_low": "Low", "sens_low_desc": "Fewer false positives",
-    "sens_med": "Medium", "sens_med_desc": "Balanced (recommended)",
-    "sens_high": "High", "sens_high_desc": "Flag more suspicious content",
     "about_model": "Model", "about_team": "Team", "about_leader": "Leader",
     "about_event": "Event"
   },

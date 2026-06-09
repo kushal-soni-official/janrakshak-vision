@@ -30,7 +30,7 @@ export function ThemeProvider({ children }) {
     }
   }
 
-  useEffect(() => { applyAll(theme, mode, customColor) }, [theme, mode])
+  useEffect(() => { applyAll(theme, mode, customColor) }, [theme, mode, customColor])
 
   const setTheme = (t) => { setThemeState(t); localStorage.setItem('jr_theme', t) }
   const toggleMode = () => {
