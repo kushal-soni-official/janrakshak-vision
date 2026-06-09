@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JanRakshak Vision — Ultimate Project Master Manual</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --primary: #38bdf8;
+            --primary-dark: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #fbbf24;
+            --danger: #ef4444;
+            --success: #10b981;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Header */
+        header {
+            background: linear-gradient(180deg, #020617 0%, var(--bg-color) 100%);
+            padding: 80px 20px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+        }
+
+        header p.subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .badges {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .badge {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section Styling */
+        section {
+            background-color: var(--surface);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-top: 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        ul, ol {
+            color: #cbd5e1;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background-color: rgba(56, 189, 248, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+        }
+
+        .highlight-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Code & Pre */
+        pre {
+            background-color: #020617;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            color: #f472b6;
+            font-size: 0.95em;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #020617;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+        }
+
+        .text-accent { color: var(--accent); }
+        .text-danger { color: var(--danger); font-weight: bold; }
+        .text-success { color: var(--success); font-weight: bold; }
+        .text-primary { color: var(--primary); font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🛡️ JanRakshak Vision</h1>
+        <p class="subtitle">The Ultimate Project Master Manual (v7.0)</p>
+        <div class="badges">
+            <span class="badge">Team: Anonymous Group</span>
+            <span class="badge">Tradition Hacks 2026</span>
+            <span class="badge">Status: Production Ready</span>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- SECTION 1 -->
+        <section id="executive-summary">
+            <h2>1. Executive Summary & The Core Problem</h2>
+            
+            <h3>The Origin Story</h3>
+            <p>JanRakshak Vision was born during <strong>Tradition Hacks 2026</strong>. While AI technology is advancing rapidly, it has birthed a dark side: hyper-realistic deepfakes, AI-generated fraud, and digital manipulation. Currently, 47% of Indian internet users encounter deepfakes, yet there is absolutely no tool available for ordinary, non-technical citizens to verify what they see.</p>
+
+            <h3>Real-World Problems We Solve</h3>
+            <p>We built this platform to combat documented, real-world crises:</p>
+            <ul>
+                <li><strong>Digital Arrest Scams:</strong> Scammers are using deepfaked video calls posing as CBI/Police officers. In early 2024, the MHA reported 7,061 victims lost over ₹120.30 crore.</li>
+                <li><strong>Financial & Endorsement Fraud:</strong> Viral deepfake videos of Mukesh Ambani, Virat Kohli, and Ratan Tata endorsing fake trading apps have defrauded tens of thousands of users.</li>
+                <li><strong>Local/Cultural Scams (Kolkata Context):</strong> Fake Durga Puja donation drives using AI-generated pandal photos, and Bengali celebrity deepfakes promoting fake investment schemes over WhatsApp.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>🎯 The Core Pitch</h4>
+                <p>An AI-powered deepfake detector so intuitive that a 65-year-old grandmother can verify a suspicious WhatsApp forward in 3 seconds, entirely in her native language (Hindi/Bengali/English) — without creating an account or paying a single rupee.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section id="core-pillars">
+            <h2>2. Project Philosophy & Core Pillars</h2>
+            <ol>
+                <li><strong>Accessibility First:</strong> No login walls, no paywalls, no complex dashboards. Just a simple drag-and-drop interface.</li>
+                <li><strong>Multilingual by Default:</strong> India operates in vernacular languages. We ship with full native support for English, Hindi (हिन्दी), and Bengali (বাংলা).</li>
+                <li><strong>Absolute Privacy:</strong> We operate a strict "Zero-Storage" policy. We are not building a database of user photos; we are providing a utility.</li>
+                <li><strong>Actionable Outcomes:</strong> We don't just output a probability score. We output plain language: REAL, SUSPICIOUS, or FAKE, alongside direct links to report malicious files to the Cyber Police.</li>
+            </ol>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section id="technical-architecture">
+            <h2>3. End-to-End Technical Architecture</h2>
+            <p>JanRakshak Vision is built on a highly decoupled, scalable, and 100% free tech stack.</p>
+
+            <h3>Frontend Layer (Client)</h3>
+            <ul>
+                <li><strong>Framework:</strong> React 18 + Vite</li>
+                <li><strong>Styling:</strong> Vanilla CSS with CSS Variables (Custom Theme System avoiding Tailwind bloat)</li>
+                <li><strong>State Management:</strong> React Hooks (useState, Context API for Themes)</li>
+                <li><strong>i18n:</strong> <code>react-i18next</code> for seamless language switching</li>
+                <li><strong>Hosting:</strong> Vercel Edge Network (Global CDN)</li>
+            </ul>
+
+            <h3>Backend Layer (API & Inference)</h3>
+            <ul>
+                <li><strong>Framework:</strong> FastAPI (Python 3.10) for high-speed, asynchronous REST endpoints</li>
+                <li><strong>Machine Learning:</strong> Hugging Face <code>transformers</code> pipeline</li>
+                <li><strong>Image Processing:</strong> Pillow (<code>PIL</code>)</li>
+                <li><strong>Hosting:</strong> Hugging Face Spaces (CPU Tier, Dockerized, Free tier)</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>🔄 The Data Flow</h4>
+                <p>User visits Vercel → Uploads file to Browser RAM → Streams binary via HTTPS POST → FastAPI receives in RAM → Runs Inference → Returns JSON → Backend Memory is instantly flushed.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section id="3-brain-ensemble">
+            <h2>4. Deep Dive: The "3-Brain" AI Ensemble (v7)</h2>
+            <p>Our biggest technical achievement is moving away from a single-model dependency. Single models have blind spots. We engineered a <strong>Weighted Multi-Model Ensemble</strong>, running 3 specialized AI "Brains" in parallel:</p>
+
+            <div class="highlight-box">
+                <h4>🧠 Brain 1: The Generative AI Expert <span class="text-accent">(Weight: 35%)</span></h4>
+                <p><strong>Base:</strong> <code>haywoodsloan/ai-image-detector-deploy</code><br>
+                <strong>Role:</strong> Highly trained on latent diffusion outputs. Excels at catching images generated by Midjourney v6, DALL-E 3, SDXL, and Gemini.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🧠 Brain 2: The Texture & Artifact Expert <span class="text-accent">(Weight: 35%)</span></h4>
+                <p><strong>Base:</strong> <code>Organika/sdxl-detector</code><br>
+                <strong>Role:</strong> Analyzes the mathematical noise of an image. Catches artificial skin textures, impossible lighting bounces, and pixel-level anomalies.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🧠 Brain 3: The Composite & Edit Expert <span class="text-accent">(Weight: 30%)</span></h4>
+                <p><strong>Base:</strong> <code>umm-maybe/AI-image-detector</code><br>
+                <strong>Role:</strong> Crucial for detecting traditional manipulation (Photoshop). If a scammer puts a fake face on a real police uniform, this brain catches the mismatched edges.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section id="heuristic-engine">
+            <h2>5. The Smart Heuristic Engine (Algorithmic Logic)</h2>
+            <p>If we merely averaged the scores, edge-cases would break the system. We built a custom <strong>Heuristic Engine</strong> in Python to apply intelligent logic:</p>
+
+            <ul>
+                <li>🚀 <strong>The High-Confidence Amplifier:</strong> If any single model returns a score >85% Fake, the engine calculates a massive multiplier to boost the final score, ensuring the threat is not buried by an average.</li>
+                <li>🛡️ <strong>The Composite Protection Floor:</strong> If the Composite Expert (Brain 3) strongly flags an image, the engine mathematically "floors" the final score to a minimum of <code>SUSPICIOUS</code>. Dangerous edits are never marked as safe.</li>
+                <li>🖼️ <strong>The Screenshot Filter:</strong> AI models falsely flag UI screenshots as "fake". We pass the image through <code>PIL</code>. We extract the unique color count. If we detect massive uniform flat areas, the engine recognizes it as a UI screenshot and <strong>dampens</strong> the Fake score by 60%, eliminating false positives.</li>
+            </ul>
+
+            <h3>Output Verdict Thresholds</h3>
+            <ul>
+                <li class="text-danger">❌ FAKE (Score >= 50%)</li>
+                <li class="text-accent">⚠️ SUSPICIOUS (Score >= 30%)</li>
+                <li class="text-success">✅ REAL (Score < 30%)</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section id="privacy">
+            <h2>6. Data Privacy & Zero-Storage Policy</h2>
+            <p>In the age of surveillance capitalism, JanRakshak Vision takes a radical stance on privacy: <strong>We store nothing.</strong></p>
+
+            <ul>
+                <li><strong>No Databases:</strong> There is no SQL/NoSQL database attached to this project.</li>
+                <li><strong>RAM-Only Processing:</strong> The FastAPI server receives the image directly into system memory (RAM).</li>
+                <li><strong>Instant Deletion:</strong> The moment the inference finishes, the Python Garbage Collector destroys the image data from memory.</li>
+                <li><strong>No Logs or Trackers:</strong> We do not log hashes, metadata, or use Google Analytics / Cookies.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 7 -->
+        <section id="api">
+            <h2>7. API Documentation & Integration</h2>
+            <p>Our backend is fully decoupled and publicly accessible for researchers or journalists.</p>
+            <p><strong>Base URL:</strong> <code>https://ofc01-janrakshak-api.hf.space</code></p>
+            
+<pre><code>POST /analyze/image
+Payload: multipart/form-data containing 'file'
+
+Response:
+{
+  "verdict": "FAKE",
+  "confidence": 88,
+  "fake_score": 0.8842,
+  "real_score": 0.1158,
+  "model_votes": [...]
+}</code></pre>
+        </section>
+
+        <!-- SECTION 8 -->
+        <section id="roadmap">
+            <h2>8. Future Expansion Roadmap</h2>
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Timeline</th>
+                    <th>Feature Goal</th>
+                </tr>
+                <tr>
+                    <td>Phase 1</td>
+                    <td>Q3 2026</td>
+                    <td>Web-app stabilization, scaling HuggingFace API for 10,000+ daily users.</td>
+                </tr>
+                <tr>
+                    <td>Phase 2</td>
+                    <td>Q4 2026</td>
+                    <td>Browser Extensions for WhatsApp Web & Twitter to auto-flag fake media.</td>
+                </tr>
+                <tr>
+                    <td>Phase 3</td>
+                    <td>2027</td>
+                    <td>Audio Deepfake Engine (Detecting Voice Cloning & Ransom calls).</td>
+                </tr>
+                <tr>
+                    <td>Phase 4</td>
+                    <td>2028</td>
+                    <td>Offline On-Device Mobile App for low-connectivity rural India.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- SECTION 9 -->
+        <section id="team">
+            <h2>9. Team Roles & Contributions</h2>
+            <p>Built entirely during the Tradition Hacks 2026 timeframe by the <strong>Anonymous Group</strong>.</p>
+            
+            <table>
+                <tr>
+                    <th>Member Name</th>
+                    <th>Designation</th>
+                    <th>Contributions</th>
+                </tr>
+                <tr>
+                    <td><strong class="text-primary">Kushal Soni</strong></td>
+                    <td>Team Leader / Full-Stack & AI Lead</td>
+                    <td>Architected project, Frontend UI/UX, FastAPI backend, "3-Brain" Heuristic Engine, Zero-Storage pipeline.</td>
+                </tr>
+                <tr>
+                    <td><strong>Vinod Kumar Prajapat</strong></td>
+                    <td>QA & Presentation Lead</td>
+                    <td>Miro Architecture Design, QA testing (edge cases), Presentation prep.</td>
+                </tr>
+                <tr>
+                    <td><strong>Vishal Vishwakarma</strong></td>
+                    <td>Member</td>
+                    <td>Did not contribute (0 contributions).</td>
+                </tr>
+            </table>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>JanRakshak Vision — Built with dedication for the safety of the digital citizen.</p>
+        <p>Tradition Hacks 2026</p>
+    </footer>
+
+</body>
+</html>
