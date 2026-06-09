@@ -22,16 +22,29 @@
 India is facing an **unprecedented crisis** of AI-powered fraud and misinformation. According to NASSCOM (2024), **47% of internet users** have been affected by deepfakes. Here are real incidents driving this project:
 
 ### 📋 Real Documented Incidents (India)
+## 🚨 The Core Problem
+
+India is facing an **unprecedented crisis** of AI-powered fraud. According to McAfee India (2025), **47% of Indians** have been targeted by deepfake scams (twice the global average). In 2025 alone, cybercrime losses reached a staggering **₹22,495 crore** (Govt of India), with an estimated 8 million deepfakes online globally.
+
+### 📋 Real Documented Incidents (2024–2026)
 
 | Category | High-Profile Incident Examples |
 |---|---|
-| **Financial & Investment Scams** | • **Mukesh Ambani Deepfake (2024):** Viral video endorsing a fake trading app; thousands lost up to ₹5 lakh each.<br>• **Virat Kohli Fake Ad:** AI video promoting a betting platform defrauded 50,000+ users. |
-| **Digital Arrests (MHA Alert)** | • **AIIMS Doctor (Jan 2024):** Lost ₹59.6 lakh to scammers posing as CBI officers via deepfake video call.<br>• **MHA Warning (Oct 2024):** 7,061 victims reported in early 2024 with total losses of ₹120.30 crore. |
-| **Election Manipulation** | • **Fake PM Modi Video (2024):** Deepfakes circulating on WhatsApp announcing false policies.<br>• **Telangana CM Deepfake:** AI-generated video making communally sensitive statements. |
-| **Targeting Vulnerable Citizens** | • **Noida IAS Officer:** 82-year-old defrauded of ₹2.5 crore via deepfake CBI video call.<br>• **Mumbai Businessman:** Lost ₹80 lakh to an AI voice clone of his son claiming urgent bail money. |
-| **Image Abuse** | • **Durga Puja Donation Fraud:** Fake AI pandals used for QR code scams.<br>• **Student Morphing (NCRB):** 1,200+ cases of AI intimate images used for blackmail. |
+| **Corporate & Financial Scams** | • **$25M CFO Deepfake (2025):** Multinational company defrauded of $25 million via deepfake video conference call.<br>• **Bank Fraud FY2025:** RBI reported over ₹36,000+ crore lost, largely driven by AI phishing and deepfakes. |
+| **Digital Arrests (MHA Alert)** | • **AIIMS Doctor (Jan 2024):** Lost ₹59.6 lakh to scammers posing as CBI officers via deepfake video call.<br>• **MHA Warning:** 7,061 victims reported in early 2024 with total losses of ₹120.30 crore. |
+| **Election Manipulation** | • **Election Deepfakes (2025):** AI-generated videos and audio clones spread rapidly via WhatsApp, disrupting democratic processes. |
+| **Targeting Families** | • **Voice Cloning Scams:** Scammers clone voices to call parents, mimicking kidnapped or injured children needing urgent money.<br>• **Noida IAS Officer:** 82-year-old defrauded of ₹2.5 crore via deepfake CBI video call. |
+| **Image Abuse & DaaS** | • **Corporate DaaS (Deepfakes-as-a-Service):** 62% of organizations hit by deepfake incidents (Gartner 2026).<br>• **Student Morphing (NCRB):** 1,200+ cases of AI intimate images used for blackmail. |
 
-> **The hardest hit are those with the least protection:** senior citizens, rural users, and non-English speakers. JanRakshak Vision exists to protect them. Free. Fast. In their language.
+> **Human deepfake detection accuracy is only 24.5%**. JanRakshak Vision exists to protect the most vulnerable: senior citizens, rural users, and non-English speakers. Free. Fast. In their language.
+
+### ⚖️ India IT Rules 2026 Compliance
+
+Effective **February 20, 2026**, the new IT Rules mandate strict guidelines for Synthetically Generated Information (SGI):
+- **2-Hour Takedown Mandate:** Social media platforms must remove reported deepfakes within 2 hours.
+- **Mandatory SGI Labeling:** AI-generated content must be clearly watermarked or labeled.
+- **Safe Harbour Loss:** Platforms fail to comply will lose Section 79 Safe Harbour protection.
+*JanRakshak Vision empowers citizens to instantly detect and report SGI content to the National Helpline 1930, aiding in IT Rules 2026 compliance.*
 
 ---
 
@@ -177,6 +190,7 @@ curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/image -F "file=@your_
 - **Future Roadmap:**
   - **v2:** Browser extension for WhatsApp Web & Social Media.
   - **v3:** Support for all 22 scheduled Indian languages.
+  - **v4:** Automated WhatsApp Tip-line Bot.
   - **v6:** Audio deepfake detection for voice clones.
 
 ---
