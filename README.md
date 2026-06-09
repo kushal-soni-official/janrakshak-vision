@@ -12,6 +12,7 @@
 [![API Status](https://img.shields.io/badge/API-Online%20✅-22c55e?style=for-the-badge)](https://ofc01-janrakshak-api.hf.space)
 [![Tradition Hacks 2026](https://img.shields.io/badge/🏆%20Tradition%20Hacks-2026-f59e0b?style=for-the-badge)](#)
 [![License](https://img.shields.io/badge/License-MIT-6366f1?style=for-the-badge)](LICENSE)
+[![Bugs Fixed](https://img.shields.io/badge/Bugs%20Fixed-22%20(2%20Audit%20Sessions)-ef4444?style=for-the-badge)](#)
 
 </div>
 
@@ -19,32 +20,29 @@
 
 ## 🚨 The Problem — Why JanRakshak Vision Exists
 
-India is facing an **unprecedented crisis** of AI-powered fraud and misinformation. According to NASSCOM (2024), **47% of internet users** have been affected by deepfakes. Here are real incidents driving this project:
-
-### 📋 Real Documented Incidents (India)
-## 🚨 The Core Problem
-
-India is facing an **unprecedented crisis** of AI-powered fraud. According to McAfee India (2025), **47% of Indians** have been targeted by deepfake scams (twice the global average). In 2025 alone, cybercrime losses reached a staggering **₹22,495 crore** (Govt of India), with an estimated 8 million deepfakes online globally.
+India is facing an **unprecedented crisis** of AI-powered fraud and deepfakes. According to McAfee India (2025), **47% of Indians** have been targeted by AI/deepfake scams — nearly **twice the global average**. In 2025, cybercrime losses reached **₹22,495 crore** (Govt of India official data).
 
 ### 📋 Real Documented Incidents (2024–2026)
 
-| Category | High-Profile Incident Examples |
+| Category | High-Profile Incidents |
 |---|---|
-| **Corporate & Financial Scams** | • **$25M CFO Deepfake (2025):** Multinational company defrauded of $25 million via deepfake video conference call.<br>• **Bank Fraud FY2025:** RBI reported over ₹36,000+ crore lost, largely driven by AI phishing and deepfakes. |
-| **Digital Arrests (MHA Alert)** | • **AIIMS Doctor (Jan 2024):** Lost ₹59.6 lakh to scammers posing as CBI officers via deepfake video call.<br>• **MHA Warning:** 7,061 victims reported in early 2024 with total losses of ₹120.30 crore. |
-| **Election Manipulation** | • **Election Deepfakes (2025):** AI-generated videos and audio clones spread rapidly via WhatsApp, disrupting democratic processes. |
-| **Targeting Families** | • **Voice Cloning Scams:** Scammers clone voices to call parents, mimicking kidnapped or injured children needing urgent money.<br>• **Noida IAS Officer:** 82-year-old defrauded of ₹2.5 crore via deepfake CBI video call. |
-| **Image Abuse & DaaS** | • **Corporate DaaS (Deepfakes-as-a-Service):** 62% of organizations hit by deepfake incidents (Gartner 2026).<br>• **Student Morphing (NCRB):** 1,200+ cases of AI intimate images used for blackmail. |
+| **Digital Arrests (Epidemic)** | MHA reports **7,061 victims** lost **₹120.30 crore** in just 3 months of early 2024. Scammers deepfake CBI/Police officers in live video calls. By 2025, scale has multiplied dramatically. |
+| **Corporate Fraud** | A multinational company lost **$25 million** when attackers deepfaked the CFO's face/voice in a Zoom call (2025). |
+| **Celebrity Endorsement Scams** | Viral deepfake videos of Mukesh Ambani and Virat Kohli endorsing fake trading apps — defrauding thousands monthly. |
+| **Family Voice Cloning** | Fraudsters clone 3–10 seconds of audio from social media and call relatives claiming emergencies. Multiple ₹10–50 lakh losses documented. |
+| **Image Abuse** | **1,200+ cases** of AI-morphed intimate images used for blackmail (NCRB data). |
+| **AI DaaS** | Deepfake-as-a-Service tools available for ₹500–2,000, collapsing the barrier to entry completely. |
 
-> **Human deepfake detection accuracy is only 24.5%**. JanRakshak Vision exists to protect the most vulnerable: senior citizens, rural users, and non-English speakers. Free. Fast. In their language.
+> **Human deepfake detection accuracy is only 24.5%** — essentially random guessing. JanRakshak Vision exists to protect the most vulnerable: senior citizens, rural users, and non-English speakers.
 
 ### ⚖️ India IT Rules 2026 Compliance
 
-Effective **February 20, 2026**, the new IT Rules mandate strict guidelines for Synthetically Generated Information (SGI):
-- **2-Hour Takedown Mandate:** Social media platforms must remove reported deepfakes within 2 hours.
-- **Mandatory SGI Labeling:** AI-generated content must be clearly watermarked or labeled.
-- **Safe Harbour Loss:** Platforms fail to comply will lose Section 79 Safe Harbour protection.
-*JanRakshak Vision empowers citizens to instantly detect and report SGI content to the National Helpline 1930, aiding in IT Rules 2026 compliance.*
+Effective **February 20, 2026**, the new IT Amendment Rules mandate:
+- **2-Hour Takedown:** Platforms must remove flagged deepfakes within 2 hours.
+- **Mandatory SGI Labeling:** AI-generated content must be labeled/watermarked.
+- **Safe Harbour Loss:** Non-compliant platforms lose Section 79 protection.
+
+*JanRakshak Vision empowers citizens to detect and report SGI content to National Helpline **1930** and cybercrime.gov.in, fully aligned with IT Rules 2026.*
 
 ---
 
@@ -53,15 +51,15 @@ Effective **February 20, 2026**, the new IT Rules mandate strict guidelines for 
 JanRakshak Vision is a **zero-friction deepfake detection platform** — no account, no app download, no technical knowledge required.
 
 ```
-Anyone → Upload photo or video → Get plain-language verdict in < 5 seconds
+Anyone → Upload photo or video → Get plain-language verdict in 8–15 seconds
 ```
 
 ### Verdict System
-| Result | Meaning | Action Advised |
+| Result | Meaning | Action |
 |---|---|---|
-| ✅ **REAL** | Media appears authentic, no AI signatures detected | Safe to share |
-| ⚠️ **SUSPICIOUS** | Partial manipulation or editing detected | Verify before sharing |
-| ❌ **FAKE** | Strong AI generation/deepfake markers found | Do not share — report |
+| ✅ **REAL** | No AI signatures detected | Safe to share |
+| ⚠️ **SUSPICIOUS** | Partial manipulation detected | Verify before sharing |
+| ❌ **FAKE** | Strong AI generation/deepfake markers found | Do not share — report to cybercrime.gov.in |
 
 ---
 
@@ -75,16 +73,6 @@ Anyone → Upload photo or video → Get plain-language verdict in < 5 seconds
 
 <img src="docs/assets/preview-analyzing.png" alt="Analyzing Screen" width="700"/>
 <br/><em>Analysis Screen — Real-time progress with AI model status</em>
-
-<br/><br/>
-
-<img src="docs/assets/preview-result.png" alt="Result Screen" width="700"/>
-<br/><em>Result Screen — Instant plain-language verdict and explanation</em>
-
-<br/><br/>
-
-<img src="docs/assets/architecture.png" alt="System Architecture" width="700"/>
-<br/><em>System Architecture — React UI → FastAPI → Dual AI Ensemble</em>
 </div>
 
 ---
@@ -92,106 +80,141 @@ Anyone → Upload photo or video → Get plain-language verdict in < 5 seconds
 ## 🗺️ System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    USER DEVICE (Mobile/PC)                   │
-│              React UI hosted on Vercel (CDN)                │
-│           Languages: English | हिन्दी | বাংলা              │
-└───────────────────────┬─────────────────────────────────────┘
-                        │ HTTPS POST /analyze/image or /analyze/video
-                        ▼
-┌─────────────────────────────────────────────────────────────┐
-│           FastAPI Backend — HuggingFace Spaces (Docker)     │
-│                                                             │
-│  ┌──────────────────────┐   ┌───────────────────────────┐  │
-│  │  SDXL Detector       │   │  General AI Detector      │  │
-│  │  Weight: 70%         │   │  Weight: 30%              │  │
-│  └──────────┬───────────┘   └──────────┬────────────────┘  │
-│             └──────────┬───────────────┘                    │
-│                        ▼                                    │
-│              ┌─────────────────┐                            │
-│              │ Ensemble Logic  │  (Weighted blend +         │
-│              │ Final Verdict   │   edge case detection)     │
-│              └────────┬────────┘                            │
-└───────────────────────┼─────────────────────────────────────┘
-                        │ JSON Response
-                        ▼
-              { verdict, confidence, explanation_en/hi/bn }
+┌─────────────────────────────────────────────────────────────────┐
+│                    USER DEVICE (Mobile / PC)                     │
+│           React 18 + Vite — Hosted on Vercel Edge CDN           │
+│           Languages: English | हिन्दी | বাংলা                   │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │ HTTPS POST /analyze/image or /analyze/video
+                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│        FastAPI Backend — HuggingFace Spaces (Docker, CPU)        │
+│        Rate Limit: 10 req/min (images) | 5 req/min (videos)     │
+│                                                                  │
+│  ┌──────────────────┐ ┌──────────────────┐ ┌─────────────────┐  │
+│  │ Brain 1: Gen-AI  │ │ Brain 2: Texture │ │ Brain 3: Edits  │  │
+│  │ Expert [35%]     │ │ Expert [35%]     │ │ Expert [30%]    │  │
+│  │ Midjourney/DALLE │ │ Pixel anomalies  │ │ Face-swaps/PS   │  │
+│  └────────┬─────────┘ └────────┬─────────┘ └────────┬────────┘  │
+│           └──────────────┬─────┴──────────────────── ┘          │
+│                          ▼                                       │
+│              ┌───────────────────────────┐                       │
+│              │  Smart Heuristic Engine   │                       │
+│              │  • High-Confidence Boost  │                       │
+│              │  • Composite Floor        │                       │
+│              │  • Screenshot Filter      │                       │
+│              └──────────────┬────────────┘                       │
+│                             │ del + gc.collect() [Zero Storage]  │
+└─────────────────────────────┼───────────────────────────────────┘
+                              │ JSON Response
+                              ▼
+          { verdict, confidence, fake_score, real_score,
+            explanation: { en, hi, bn }, model_votes[] }
 ```
 
-**Privacy Guarantee:** Files are analyzed in RAM only. Nothing is written to disk. No storage. No logs. No user data collected.
+**Privacy Guarantee:** All processing is RAM-only. Nothing written to disk (except temp video files, immediately deleted). No database, no logs, no user data collected.
 
 ---
 
-## 🧠 How It Works: The "3-Brain" AI Architecture (v7)
+## 🧠 The "3-Brain" AI Ensemble (v7) + Smart Heuristic Engine
 
-We use a **Weighted Multi-Model Ensemble** (a "3-Brain" system) running in parallel, combined with a custom Smart Heuristic Engine to achieve **90%+ accuracy**.
+We use a **Weighted Multi-Model Ensemble** running 3 specialized AI "Brains" in parallel:
 
-1. **Generative AI Expert (35%):** Trained to detect Midjourney v6, DALL-E 3, and SDXL.
-2. **Texture & Artifact Expert (35%):** Analyzes pixel anomalies and artificial skin textures.
-3. **Composite & Edit Expert (30%):** Specialized in detecting Photoshop manipulations and face-swaps.
+| Brain | Model | Weight | Specialization |
+|---|---|---|---|
+| 🧠 **Brain 1** | `haywoodsloan/ai-image-detector-deploy` | **35%** | Generative AI (Midjourney, DALL-E 3, SDXL, Gemini) |
+| 🧠 **Brain 2** | `Organika/sdxl-detector` | **35%** | Pixel noise, texture artifacts, impossible lighting |
+| 🧠 **Brain 3** | `umm-maybe/AI-image-detector` | **30%** | Composites, face-swaps, Photoshop manipulation |
 
-### The Smart Heuristic Engine
-- 🚀 **High-Confidence Amplifier:** If any single model is >85% certain an image is a deepfake, it boosts the final "Fake" probability.
-- 🛡️ **Composite Protection Floor:** Strong edits are floored to at least "SUSPICIOUS ⚠️", preventing dangerous edits from showing as "REAL".
-- 🖼️ **Screenshot / UI Filter:** Uses `PIL ImageStat` to analyze pixel variance. If an image has massive uniform areas (like a screenshot), the fake score is dampened to prevent false alarms.
+### The Smart Heuristic Engine (Post-Model Logic)
+- 🚀 **High-Confidence Amplifier:** Any single model >85% Fake → boost final score. Threats can't be averaged away.
+- 🛡️ **Composite Protection Floor:** Brain 3 ≥70% → floor verdict to minimum SUSPICIOUS. Dangerous edits are *never* marked safe.
+- 🖼️ **Dual-Signal Screenshot Filter:** Before inference, checks 256×256 thumbnail for (1) unique color count <2,000 AND (2) pixel std-dev <15. Both must agree before dampening fake score by 60%. Prevents false positives on dark/compressed photos.
 
 ---
 
 ## 🏗️ Full Tech Stack
 
-| Layer | Technology | Layer | Technology |
-|---|---|---|---|
-| **Frontend** | React 18 + Vite 8 | **Backend** | FastAPI (Python 3.10) |
-| **Styling** | Vanilla CSS (No Tailwind) | **AI Models** | HuggingFace Transformers |
-| **i18n** | i18next (EN/HI/BN) | **Image/Video**| Pillow (PIL) / OpenCV |
-| **Hosting** | Vercel (Edge CDN) | **Hosting** | HuggingFace Spaces (Docker)|
+| Layer | Technology |
+|---|---|
+| **Frontend Framework** | React 18 + Vite |
+| **Styling** | Vanilla CSS with CSS Variables (7 color themes, dark/light mode) |
+| **Internationalization** | `react-i18next` — English, हिन्दी (Hindi), বাংলা (Bengali) |
+| **File Handling** | `react-dropzone` — images (JPG/PNG/WEBP/GIF/BMP) + videos (MP4/AVI/MOV/MKV) |
+| **Frontend Hosting** | Vercel Edge Network (auto-deploys from GitHub `main`) |
+| **Backend Framework** | FastAPI (Python 3.10) + Uvicorn |
+| **AI Models** | Hugging Face `transformers` pipeline (3 models preloaded at startup) |
+| **Image Processing** | Pillow (`PIL`) + `ImageStat` for heuristic analysis |
+| **Video Processing** | `opencv-python-headless` — frame extraction |
+| **Rate Limiting** | `slowapi` — 10/min images, 5/min videos per IP |
+| **Backend Hosting** | Hugging Face Spaces (CPU tier, Dockerized, free) |
 
 ---
 
 ## 📖 User Guide
 
-**Step 1:** Open [janrakshak-frontend.vercel.app](https://janrakshak-frontend.vercel.app).  
-**Step 2:** Choose language (⚙️) — EN, हिन्दी, or বাংলা.  
-**Step 3:** Upload photo/video via drag-and-drop or tap.  
-**Step 4:** Tap **"Check This File"** and wait ~3–5 seconds for the verdict.  
-**Step 5:** Share the result to warn contacts or report to cybercrime.gov.in.
+**Step 1:** Open [janrakshak-frontend.vercel.app](https://janrakshak-frontend.vercel.app)  
+**Step 2:** Choose language (⚙️ settings) — EN, हिन्दी, or বাংলা  
+**Step 3:** Upload photo/video via drag-and-drop or tap to browse  
+**Step 4:** Tap **"Check This File"** and wait 8–15 seconds (images) or 30–60 seconds (videos)  
+**Step 5:** Share result or report to [cybercrime.gov.in](https://cybercrime.gov.in) if fake detected
+
+> **Note:** The backend runs on HuggingFace free tier. If the API has been idle, the first request may take 30–90 seconds to wake up (cold start). Subsequent requests are fast.
 
 ---
 
-## 🔬 Advanced API Guide (For Developers)
+## 🔬 API Reference (For Developers)
 
-**Base URL:** `https://ofc01-janrakshak-api.hf.space`
+**Base URL:** `https://ofc01-janrakshak-api.hf.space`  
+**Interactive Docs:** `https://ofc01-janrakshak-api.hf.space/docs`
 
 ```bash
-# Analyze an Image
-curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/image -F "file=@your_image.jpg"
+# Health Check
+curl https://ofc01-janrakshak-api.hf.space
+
+# Analyze an Image (max 50MB)
+curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/image \
+     -F "file=@your_image.jpg"
+
+# Analyze a Video (max 100MB)
+curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/video \
+     -F "file=@your_video.mp4"
 ```
 
-**JSON Response:**
+**Image Response:**
 ```json
 {
   "verdict": "FAKE",
   "confidence": 88,
-  "explanation": { "en": "This image shows 88% signs of AI generation..." },
-  "file_type": "image",
+  "fake_score": 0.8842,
+  "real_score": 0.1158,
+  "explanation": {
+    "en": "This image shows 88% signs of AI generation...",
+    "hi": "इस तस्वीर में 88% AI निर्माण के संकेत हैं...",
+    "bn": "এই ছবিতে 88% AI তৈরির লক্ষণ রয়েছে..."
+  },
   "model_votes": [
-    { "name": "sdxl", "fake_score": 0.87, "verdict": "FAKE" },
-    { "name": "general", "fake_score": 0.91, "verdict": "FAKE" }
+    { "name": "detector_v2", "fake_score": 0.95, "verdict": "FAKE", "confidence": 95 },
+    { "name": "sdxl",        "fake_score": 0.82, "verdict": "FAKE", "confidence": 82 },
+    { "name": "general",     "fake_score": 0.85, "verdict": "FAKE", "confidence": 85 }
   ]
 }
 ```
-*Full Swagger Docs at: `https://ofc01-janrakshak-api.hf.space/docs`*
+
+**Rate Limits:** 10 requests/min per IP (images) · 5 requests/min per IP (videos)  
+**Error Codes:** 400 (invalid file) · 413 (too large) · 415 (wrong type) · 429 (rate limit) · 503 (cold start)
 
 ---
 
-## 🌍 Impact & Future Scope
+## 🌍 Future Roadmap
 
-- 🇮🇳 **Indian-Context:** Multilingual, focuses on scams actively targeting India.
-- **Future Roadmap:**
-  - **v2:** Browser extension for WhatsApp Web & Social Media.
-  - **v3:** Support for all 22 scheduled Indian languages.
-  - **v4:** Automated WhatsApp Tip-line Bot.
-  - **v6:** Audio deepfake detection for voice clones.
+| Phase | Timeline | Goal |
+|---|---|---|
+| **Phase 1** | Q3 2026 | Stabilization, parallel inference, scaling to 10K+ daily users |
+| **Phase 2** | Q4 2026 | Browser Extension — WhatsApp Web, Twitter/X, Facebook auto-verify |
+| **Phase 3** | 2027 | Audio Deepfake Detection (voice cloning scams) |
+| **Phase 4** | 2027 | WhatsApp Bot — forward any suspicious image for instant check |
+| **Phase 5** | 2028 | Offline Mobile App — React Native, quantized models, no internet required |
 
 ---
 
@@ -201,13 +224,13 @@ curl -X POST https://ofc01-janrakshak-api.hf.space/analyze/image -F "file=@your_
 
 | Member | Role | Contribution |
 |---|---|---|
-| **Kushal Soni** | Team Leader | Frontend Development, Backend Architecture, AI/ML Integration, API Design |
-| **Vinod Kumar Prajapat** | Member | Miro Architecture Design, Testing & Debugging, Presentation |
+| **Kushal Soni** | **Team Leader / Full-Stack & AI Lead** | Frontend UI/UX (7 themes, i18n, drag-drop), FastAPI backend, "3-Brain" ensemble, Heuristic Engine v7, Zero-Storage pipeline, rate limiting, video analysis |
+| **Vinod Kumar Prajapat** | QA & Presentation Lead | Miro architecture diagrams, QA & edge-case testing (screenshot false-positive → dual-signal filter), presentation materials |
 | **Vishal Vishwakarma** | Member | — |
 
 ---
 
-## 📄 License & Open Source
+## 📄 License
 
 MIT License — Free to use, modify, and distribute with attribution.
 
@@ -215,8 +238,8 @@ MIT License — Free to use, modify, and distribute with attribution.
 
 **🛡️ JanRakshak Vision** — *Protecting every Indian from AI-powered deception*
 
-[Live App](https://janrakshak-frontend.vercel.app) · [API Docs](https://ofc01-janrakshak-api.hf.space/docs) · [Report a Bug](https://github.com/kushal-soni-official/janrakshak-vision/issues)
+[Live App](https://janrakshak-frontend.vercel.app) · [API](https://ofc01-janrakshak-api.hf.space) · [API Docs](https://ofc01-janrakshak-api.hf.space/docs) · [Report Issue](https://github.com/kushal-soni-official/janrakshak-vision/issues)
 
-*Built with ❤️ for Tradition Hacks 2026 — Anonymous Group*
+*Built with ❤️ for Tradition Hacks 2026 — Anonymous Group | Leader: Kushal Soni*
 
 </div>

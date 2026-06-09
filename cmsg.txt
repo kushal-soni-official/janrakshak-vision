@@ -1,0 +1,1 @@
+fix: round 2 audit - SEO title, Google Fonts, dead imports, React useEffect dep, locales max_size, bn.json restored, leader in About panel

@@ -16,7 +16,7 @@ const TEAM_MEMBERS = [
     name: 'Vinod Kumar Prajapat',
     role: 'Testing | Miro Architecture | Presentation',
     isLeader: false,
-    github: '#',
+    github: 'https://github.com/vinod-kaumar',
     works: ['Miro architecture design', 'Testing and debugging', 'Presentation'],
     avatar: 'V',
   },
