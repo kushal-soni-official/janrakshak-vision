@@ -14,11 +14,11 @@ def bytes_to_pil(data: bytes) -> Image.Image:
     return Image.open(io.BytesIO(data))
 
 
-def extract_frames(video_bytes: bytes, num_frames: int = 8) -> list:
+def extract_frames(video_bytes: bytes, num_frames: int = 8, suffix: str = '.mp4') -> list:
     """Extract evenly-spaced frames from video as PIL Images."""
     tmp_path, frames = None, []
     try:
-        with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as tmp:
+        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
             tmp.write(video_bytes)
             tmp_path = tmp.name
 

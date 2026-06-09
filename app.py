@@ -9,7 +9,7 @@ Endpoints:
   POST /analyze/image → Analyze image file (JPG, PNG, WEBP, GIF, BMP)
   POST /analyze/video → Analyze video via frame-by-frame majority vote (MP4, AVI, MOV, MKV)
 
-Rate limiting: 10 requests/minute per IP (free tier protection)
+Rate limiting: 10 requests/minute per IP for images, 5 requests/minute for videos (free tier protection)
 Privacy: Zero-storage — all processing is RAM-only, no files written to disk.
 """
 
@@ -139,6 +139,9 @@ async def analyze_image(request: Request, file: UploadFile = File(...)):
             status_code=500,
             detail="Analysis failed due to an internal error. Please try again."
         )
+    finally:
+        del pil_image
+        gc.collect()
 
     return {
         "verdict":         result["verdict"],
@@ -173,9 +176,17 @@ async def analyze_video(request: Request, file: UploadFile = File(...)):
             detail=f"Video too large ({len(content) // (1024*1024)}MB). Maximum allowed: 100MB."
         )
 
-    # Extract video frames
+    # Extract video frames (pass correct suffix so OpenCV gets right container hints)
+    ext_map = {
+        "video/mp4": ".mp4",
+        "video/avi": ".avi",
+        "video/x-msvideo": ".avi",
+        "video/quicktime": ".mov",
+        "video/x-matroska": ".mkv",
+    }
+    video_suffix = ext_map.get(file.content_type, ".mp4")
     try:
-        frames = extract_frames(content, num_frames=8)
+        frames = extract_frames(content, num_frames=8, suffix=video_suffix)
     except Exception as e:
         logger.error(f"Frame extraction error: {e}")
         raise HTTPException(
