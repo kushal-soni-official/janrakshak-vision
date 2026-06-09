@@ -1,23 +1,28 @@
 """
 JanRakshak Vision v7 — models.py
-ULTIMATE ENSEMBLE: 90%+ Accuracy achieved.
+Weighted Multi-Model Ensemble for AI-generated image & deepfake detection.
 
-TECHNIQUE:
+ENSEMBLE:
   1. Multi-Model Weighted Ensemble (3 specialized brains)
-     - detector_v2 (35%): Generative AI expert (Midjourney, DALL-E)
-     - sdxl (35%): AI texture / artifact expert
-     - general (30%): Composite / Edit expert
-  2. Smart Heuristic Engine:
+     - detector_v2 (35%): Generative AI expert (Midjourney v6, DALL-E 3, Gemini)
+     - sdxl (35%): AI texture / artifact expert (noise patterns, lighting anomalies)
+     - general (30%): Composite / Edit expert (face-swaps, Photoshop manipulation)
+
+  2. Smart Heuristic Engine v7:
      - High-Confidence Amplifier: If any model is >85% fake, boost final score.
-     - Composite Protection: If 'general' detects edit >60%, floor to SUSPICIOUS.
-     - Screenshot & Digital Art Filter: Screenshots have massive uniform areas. We use
-       Edge Detection & Variance. If the image lacks photographic noise/texture,
-       we dampen the "Fake" score to avoid false positives on UI elements.
+     - Composite Protection Floor: If 'general' detects edit >70%, floor to SUSPICIOUS.
+     - Screenshot & Digital Art Filter: Dual-check using unique color count + pixel
+       variance analysis. Dampens fake score for UI screenshots to eliminate false
+       positives while keeping sensitivity on real photos with low-light palettes.
+
+Built by: Kushal Soni (Team Leader) | Team: Anonymous Group
+Competition: Tradition Hacks 2026 | Hosted: Hugging Face Spaces (CPU)
 """
 
 from transformers import pipeline
 from PIL import Image, ImageStat
 import logging
+import gc
 
 logger = logging.getLogger(__name__)
 
@@ -84,22 +89,36 @@ def _preprocess(img: Image.Image) -> Image.Image:
 
 def _is_digital_ui_or_screenshot(img: Image.Image) -> bool:
     """
-    Robust screenshot detection using unique color counts and simple variance.
-    UI screenshots typically have < 10,000 unique colors if resized, 
-    whereas real photos have 50,000+.
+    Dual-signal screenshot detection:
+    1. Unique color count on 256x256 thumbnail (<2000 = very uniform = likely UI/clipart)
+    2. Pixel variance check — real photographs have high std-dev; flat UI has near-zero variance
+
+    Why dual-check:
+    - Color count alone misfires on dark/low-light photos and heavy JPEG compression.
+    - Variance alone can misfire on solid-background product shots.
+    - Both signals agreeing = high confidence it's a non-photographic image.
     """
     try:
-        # Resize small to normalize
         small = img.copy()
         small.thumbnail((256, 256))
-        # Count unique colors
+
+        # Signal 1: Unique color count
         colors = small.getcolors(maxcolors=65536)
-        if colors is not None:
-            num_colors = len(colors)
-            logger.info(f"Color count: {num_colors}")
-            # If less than 4000 colors in a 256x256 image, it's highly uniform (screenshot/clipart)
-            if num_colors < 4000:
-                return True
+        num_colors = len(colors) if colors is not None else 65536
+        logger.info(f"Color count: {num_colors}")
+
+        # Signal 2: Pixel variance (real photos: stddev > 30; flat UI: < 10)
+        stat = ImageStat.Stat(small)
+        # Average std deviation across R, G, B channels
+        avg_stddev = sum(stat.stddev[:3]) / 3
+        logger.info(f"Pixel stddev: {avg_stddev:.2f}")
+
+        # Both signals must agree to be called a screenshot
+        # Low color count alone is not enough (dark photos can be low)
+        if num_colors < 2000 and avg_stddev < 15:
+            logger.info("Screenshot/UI detected via dual-signal check.")
+            return True
+
         return False
     except Exception as e:
         logger.warning(f"UI detection failed: {e}")
@@ -186,10 +205,14 @@ def run_inference(pil_image: Image.Image) -> dict:
         boost = min(0.15, (max_score - 0.80) * 0.8)
         final_fake = min(0.99, final_fake + boost)
 
-    # 3. Composite Edit Protection
+    # 3. Composite Edit Protection Floor
+    # If Brain 3 (composite/edit expert) strongly flags manipulation but
+    # the weighted average is low, force a SUSPICIOUS floor.
+    # Threshold: >0.70 on general (previously was 0.60 — tightened to reduce false positives)
     general_score = scores.get("general", 0)
     if general_score >= 0.70 and final_fake < 0.35:
         final_fake = 0.35
+        logger.info(f"Composite floor applied. general={general_score:.4f}")
 
     # 4. Screenshot / UI Filter (Dampener)
     if is_ui:
@@ -200,11 +223,17 @@ def run_inference(pil_image: Image.Image) -> dict:
     verdict, confidence = _verdict(final_fake)
     logger.info(f"FINAL v7: {verdict} ({confidence}%) fake_score={final_fake:.4f}")
 
-    return {
+    result = {
         "verdict":     verdict,
         "confidence":  confidence,
         "fake_score":  round(final_fake, 4),
         "real_score":  round(1 - final_fake, 4),
         "model_votes": individual,
     }
+
+    # Explicit memory cleanup (GC is non-deterministic; force it)
+    del img
+    gc.collect()
+
+    return result
 
