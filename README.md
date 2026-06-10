@@ -79,10 +79,10 @@ Anyone → Upload photo or video → Get plain-language verdict in 8–15 second
 
 ## 🗺️ System Architecture
 
-
+<div align="center">
 <img src="docs/assets/architecture.png" alt="architecture" width="700"/>
-<br/><em>Project Architecture Diagram made by Miro.</em>
-
+<em>Project Architecture Diagram made by Miro.</em>
+</div>
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
