@@ -85,6 +85,8 @@ Anyone → Upload photo or video → Get plain-language verdict in 8–15 second
 </div>
 
 <br/>
+
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    USER DEVICE (Mobile / PC)                     │
@@ -117,6 +119,8 @@ Anyone → Upload photo or video → Get plain-language verdict in 8–15 second
           { verdict, confidence, fake_score, real_score,
             explanation: { en, hi, bn }, model_votes[] }
 ```
+
+
 
 **Privacy Guarantee:** All processing is RAM-only. Nothing written to disk (except temp video files, immediately deleted). No database, no logs, no user data collected.
 
