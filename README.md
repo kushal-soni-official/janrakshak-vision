@@ -84,6 +84,7 @@ Anyone → Upload photo or video → Get plain-language verdict in 8–15 second
 <em>Project Architecture Diagram made by Miro.</em>
 </div>
 
+<br/>
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    USER DEVICE (Mobile / PC)                     │
