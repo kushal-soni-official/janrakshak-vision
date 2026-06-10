@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Shield, Settings, X, Sun, Moon } from 'lucide-react'
+import { Settings, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import LanguageSwitcher from './LanguageSwitcher'
 import ThemePicker from './ThemePicker'
@@ -18,9 +18,8 @@ export default function Navbar({ analysisHistory = [] }) {
 
         {/* Brand */}
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))' }}>
-            <Shield size={17} color="white" />
+          <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
+            <img src="/logo.png" alt="JanRakshak Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <span className="font-bold text-sm leading-none" style={{ color: 'var(--color-text)' }}>
